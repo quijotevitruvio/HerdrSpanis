@@ -15,7 +15,7 @@
 
 ### 🌐 Selecciona tu Idioma / Select your Language
 
-[🇪🇸 **Leer en Español**](#-español) &nbsp;&nbsp;|&nbsp;&nbsp; [🇬🇧 **Read in English**](#-english)
+[🇪🇸 **Leer en Español (Guía para Principiantes)**](#-español) &nbsp;&nbsp;|&nbsp;&nbsp; [🇬🇧 **Read in English (Beginner Guide)**](#-english)
 
 ---
 
@@ -24,11 +24,11 @@
 <br/>
 
 <details open>
-<summary><h2 id="-español" style="display:inline;">🇪🇸 Español — Guía Rápida</h2></summary>
+<summary><h2 id="-español" style="display:inline;">🇪🇸 Español — Guía Paso a Paso</h2></summary>
 
 ### 💡 ¿Por qué HerdrSpanis?
 
-[Herdr](https://herdr.dev) es un potente multiplexor de terminales para agentes de Inteligencia Artificial (Antigravity, Claude, Hermes, OpenCode, Codex, Devin, etc.). Sin embargo, su interfaz original viene **completamente en inglés**.
+[Herdr](https://herdr.dev) es un potente gestor y multiplexor de terminales para agentes de Inteligencia Artificial (Antigravity, Claude, Hermes, OpenCode, Codex, Devin, etc.). Sin embargo, su interfaz original viene **completamente en inglés**.
 
 **HerdrSpanis lo traduce todo con un solo comando y sin romper nada:**
 * ✅ **100% en Español:** Barra lateral (`espacios`, `agentes`, `menú`), menús contextuales de clic derecho y configuración.
@@ -38,33 +38,49 @@
 
 ---
 
-### 🚀 Instalación en 1 Solo Paso
+### 🚀 Instalación en 1 Solo Paso (Elige tu situación)
 
-Abre PowerShell (o Windows Terminal) y pega este comando:
+Abre **PowerShell** (o Windows Terminal) y pega este único comando:
 
 ```powershell
 irm https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/instalar.ps1 | iex
 ```
 
-> **¿Qué hace automáticamente?**  
-> 1. Detecta tu versión de Herdr (o la instala si no la tienes).  
-> 2. Guarda un respaldo seguro del ejecutable oficial (`herdr-original.exe`).  
-> 3. Instala Herdr en Español optimizado con sus librerías de terminal.  
-> 4. Deja configurados los comandos globales en tu sistema.
+El instalador detecta automáticamente en qué situación estás y hace todo por ti:
+
+#### 🟢 Camino 1: Si YA tienes Herdr instalado en inglés
+* **¿Se borran mis proyectos, pestañas o configuraciones?**  
+  **¡No, absolutamente nada!** Todo tu trabajo, historial y ajustes se mantienen intactos.
+* **¿Qué hace el comando en tu equipo?**
+  1. Detecta la versión oficial que tienes instalada.
+  2. Guarda una copia de seguridad automática de tu ejecutable oficial llamada `herdr-original.exe` (nunca pierdes lo oficial).
+  3. Descarga la versión en español para esa misma versión y la conecta al sistema.
+  4. Deja listos los comandos para que puedas volver al inglés oficial cuando quieras.
+* **Para verlo:** Cierra tu ventana actual de Herdr, abre una terminal nueva y escribe `herdr`.
+
+#### 🔵 Camino 2: Si es tu PRIMERA VEZ y lo quieres en español desde cero
+* **¿Necesitas descargar o instalar algo antes?**  
+  **¡No necesitas nada previo!** Solo pega la misma línea de comando.
+* **¿Qué hace el comando en tu equipo?**
+  1. Detecta que no tienes Herdr instalado.
+  2. Descarga e instala la versión oficial de Herdr de fondo.
+  3. Aplica de inmediato la traducción completa al español y el paquete de iconos tipográficos para cada IA.
+  4. Configura el comando `herdr` globalmente en tu computadora.
+* **Para comenzar:** Abre una terminal nueva, escribe `herdr` y listo para programar.
 
 ---
 
-### 🎮 Comandos Globales
+### 🎮 Comandos Globales y Cómo Usarlos
 
 Una vez instalado, usa estos comandos directamente en cualquier terminal:
 
-| Comando | Acción |
-| :--- | :--- |
-| `herdr` | Inicia Herdr completamente en español. |
-| `herdr-idioma es` | Activa el modo **100% en Español**. |
-| `herdr-idioma en` | Vuelve al **Inglés oficial de fábrica** sin desinstalar nada. |
-| `herdr-idioma` | Consulta qué idioma está activo en este momento. |
-| `herdr-actualizar-es` | Actualiza Herdr y sincroniza el español con la versión más reciente. |
+| Comando | ¿Qué hace? | ¿Cuándo usarlo? |
+| :--- | :--- | :--- |
+| `herdr` | Inicia Herdr completamente en español. | Para tu trabajo diario con agentes IA. |
+| `herdr-idioma es` | Activa el modo **100% en Español**. | Cuando quieras ver la interfaz traducida. |
+| `herdr-idioma en` | Vuelve al **Inglés oficial de fábrica**. | Cuando quieras usar temporalmente el binario original intacto. |
+| `herdr-idioma` | Consulta qué idioma está activo. | Para verificar el estado de tu instalación. |
+| `herdr-actualizar-es` | Actualiza y sincroniza con nuevas versiones. | Cuando el equipo oficial de Herdr lance una actualización. |
 
 ---
 
@@ -72,17 +88,19 @@ Una vez instalado, usa estos comandos directamente en cualquier terminal:
 
 HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos oficiales:
 
-* **`󰚩 Antigravity`** (Google Antigravity CLI)
-* **`⚚ Hermes`** (Nous Research Hermes Agent)
-* **` OpenCode`** (OpenCode TUI)
-* **`󰭻 Claude`** (Anthropic Claude Code)
-* **`󰘦 Codex`** (Codex)
-* **` GitHub Copilot`** (GitHub Copilot CLI)
-* **`󰆍 Devin`** (Devin Terminal)
-* **`󰨞 Cursor`** (Cursor CLI)
-* **`󰛡 Grok`** (xAI Grok)
-* **`󰽤 Kimi`** (Moonshot Kimi)
-* **`󰈸 Qwen`** (Alibaba Qwen Code)
+| Agente / CLI | Icono | Estado traducido |
+| :--- | :---: | :--- |
+| **Google Antigravity** | `󰚩 Antigravity` | `idle` ➔ **Listo** |
+| **Nous Hermes** | `⚚ Hermes` | `working` ➔ **Trabajando...** |
+| **OpenCode** | ` OpenCode` | `blocked` ➔ **Esperando tu respuesta** |
+| **Anthropic Claude Code**| `󰭻 Claude` | `done` ➔ **Completado** |
+| **Codex** | `󰘦 Codex` | `unknown` ➔ **Desconocido** |
+| **GitHub Copilot** | ` GitHub Copilot` | |
+| **Devin** | `󰆍 Devin` | |
+| **Cursor** | `󰨞 Cursor` | |
+| **xAI Grok** | `󰛡 Grok` | |
+| **Moonshot Kimi** | `󰽤 Kimi` | |
+| **Alibaba Qwen** | `󰈸 Qwen` | |
 
 ---
 
@@ -102,8 +120,8 @@ HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos ofic
 
 Si esta herramienta te ayuda en tu día a día programando con Inteligencia Artificial:
 
-* ⭐ **Danos una estrella en GitHub:** [github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
-* ☕ **Donaciones por PayPal:** Invítame un café o apoya el mantenimiento continuo:  
+* ⭐ **Danos una estrella en GitHub:** [github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis) (¡Nos ayuda muchísimo a llegar a más gente!).
+* ☕ **Donaciones por PayPal:** Invítame un café o apoya el mantenimiento de futuras versiones y traducciones:  
   👉 **[https://paypal.me/bibliotecologo](https://paypal.me/bibliotecologo)**
 
 </details>
@@ -119,7 +137,7 @@ Si esta herramienta te ayuda en tu día a día programando con Inteligencia Arti
 
 ### 💡 Why HerdrSpanis?
 
-[Herdr](https://herdr.dev) is a terminal workspace multiplexer built for AI coding agents. By default, the interface is hardcoded in English.
+[Herdr](https://herdr.dev) is an agent-centric terminal workspace multiplexer built for AI coding tools. By default, the interface is hardcoded in English.
 
 **HerdrSpanis** provides full Spanish localization while preserving official upstream compatibility:
 * Translates 100% of the interface (`espacios`, `agentes`, context menus, settings).
@@ -129,13 +147,33 @@ Si esta herramienta te ayuda en tu día a día programando con Inteligencia Arti
 
 ---
 
-### 🚀 1-Step Installation
+### 🚀 1-Step Installation (Choose your situation)
 
-Run in PowerShell:
+Paste this single command in **PowerShell**:
 
 ```powershell
 irm https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/instalar.ps1 | iex
 ```
+
+The installer detects your scenario automatically:
+
+#### 🟢 Path 1: You ALREADY have Herdr installed in English
+* **Will I lose any data or workspaces?** No, nothing is lost. All sessions, configurations, and workspaces remain intact.
+* **What does the command do?**
+  1. Detects your current official English installation.
+  2. Creates an automatic backup named `herdr-original.exe` (you never lose upstream).
+  3. Downloads and links the matching Spanish build.
+  4. Sets up `herdr-idioma` so you can revert to English anytime.
+* **To see it:** Restart your terminal and run `herdr`.
+
+#### 🔵 Path 2: It is your FIRST TIME and you want Spanish from scratch
+* **Do you need to install anything beforehand?** No prerequisite downloads needed.
+* **What does the command do?**
+  1. Detects Herdr is missing.
+  2. Downloads and installs upstream Herdr in the background.
+  3. Immediately applies complete Spanish localization and authentic AI glyphs.
+  4. Configures global `herdr` commands on your PATH.
+* **To start:** Open a new terminal and type `herdr`.
 
 ---
 
