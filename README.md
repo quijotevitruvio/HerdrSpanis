@@ -1,12 +1,27 @@
-# Herdr en Español 🇪🇸
+# HerdrSpanis 🇪🇸
 
-Skill y demonio de localización automática para **[Herdr](https://herdr.dev)** (terminal workspace manager para flotas de agentes AI).
+Skill y demonio de personalización visual y localización al español para **[Herdr](https://herdr.dev)**.
 
-Herdr está compilado en Rust en inglés, pero su API nativa de socket expone el comando `pane report-metadata`, el cual permite sobreescribir las etiquetas de estado del ciclo de vida y los nombres de los agentes en tiempo real sin modificar el binario.
+Reemplaza los textos en inglés de estado por etiquetas claras en español y asigna iconos distintivos a cada IA / Agente de codificación en la barra lateral.
 
-## 🚀 ¿Qué traduce?
+## ✨ Iconos de Agentes
 
-| Estado Original | Traducción en Herdr |
+| Agente | Nombre con Icono |
+| :--- | :--- |
+| `agy` | ✨ Antigravity |
+| `hermes` | ⚡ Hermes |
+| `opencode` | 🤖 OpenCode |
+| `claude` | 🧠 Claude |
+| `copilot` | 🐙 Copilot |
+| `devin` | 🎯 Devin |
+| `cursor` | ⚡ Cursor |
+| `grok` | 🌌 Grok |
+| `qwen` | 🐉 Qwen |
+| `kimi` | 🌙 Kimi |
+
+## 📊 Estados en Español
+
+| Original | En HerdrSpanis |
 | :--- | :--- |
 | `idle` | **Listo** |
 | `working` | **Trabajando...** |
@@ -14,39 +29,22 @@ Herdr está compilado en Rust en inglés, pero su API nativa de socket expone el
 | `done` | **Completado** |
 | `unknown` | **Desconocido** |
 
-Además renombra amigablemente los agentes en la barra lateral:
-- `agy` ➔ **Antigravity (Español)**
-- `hermes` ➔ **Hermes Agent (Español)**
-- `opencode` ➔ **OpenCode (Español)**
-- `claude` ➔ **Claude Code (Español)**
-
 ---
 
-## 📦 Instalación y Uso
+## 🚀 Uso Rápido
 
-### 1. Clonar el repositorio
-```bash
-git clone https://github.com/quijotevitruvio/herdr-espanol.git
-cd herdr-espanol
-```
-
-### 2. Ejecutar la traducción (Una sola vez)
-Aplica el español a todos los paneles y agentes que tengas abiertos actualmente:
+### Aplicar cambios ahora:
 ```powershell
 pwsh -File ./herdr-espanol.ps1
 ```
 
-### 3. Modo Daemon / Vigilante
-Si sueles abrir y cerrar paneles o crear pestañas continuamente, déjalo corriendo en segundo plano:
+### Ejecutar como servicio vigilante en segundo plano:
 ```powershell
 pwsh -File ./herdr-espanol.ps1 -Watch
 ```
 
 ---
 
-## 🛠️ Requisitos
-- Windows / Linux / macOS con PowerShell (`pwsh`)
-- [Herdr](https://herdr.dev) instalado y en ejecución
-
-## 📄 Licencia
-MIT © [quijotevitruvio](https://github.com/quijotevitruvio)
+## 📦 Repositorio
+- GitHub: [https://github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
+- Licencia: MIT © [quijotevitruvio](https://github.com/quijotevitruvio)

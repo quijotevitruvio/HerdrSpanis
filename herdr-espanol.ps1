@@ -1,11 +1,10 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    Herdr en Español - Daemon / Hook de localización automática para Herdr.
+    HerdrSpanis - Localización y tematización de agentes para Herdr.
 .DESCRIPTION
-    Monitorea los paneles y agentes activos en Herdr y aplica metadatos de visualización
-    con etiquetas de estado traducidas al español (Listo, Trabajando..., Esperando respuesta, etc.)
-    y nombres amigables para cada agente (Hermes, OpenCode, Antigravity, Claude).
+    Aplica etiquetas de estado en español (Listo, Trabajando..., Esperando tu respuesta, etc.)
+    y añade iconos reconocibles (Nerd Fonts / Unicode) a cada agente en Herdr.
 #>
 
 [CmdletBinding()]
@@ -25,17 +24,22 @@ if (-not (Get-Command $herdrCmd -ErrorAction SilentlyContinue)) {
     }
 }
 
-$agentNames = @{
-    "agy"        = "Antigravity (Español)"
-    "hermes"     = "Hermes Agent (Español)"
-    "opencode"   = "OpenCode (Español)"
-    "claude"     = "Claude Code (Español)"
-    "codex"      = "Codex"
-    "copilot"    = "GitHub Copilot"
-    "devin"      = "Devin"
+# Iconos y nombres estilizados para cada IA/Agente
+$agentIcons = @{
+    "agy"        = "✨ Antigravity"
+    "hermes"     = "⚡ Hermes"
+    "opencode"   = "🤖 OpenCode"
+    "claude"     = "🧠 Claude"
+    "codex"      = "💻 Codex"
+    "copilot"    = "🐙 Copilot"
+    "devin"      = "🎯 Devin"
+    "cursor"     = "⚡ Cursor"
+    "grok"       = "🌌 Grok"
+    "kimi"       = "🌙 Kimi"
+    "qwen"       = "🐉 Qwen"
 }
 
-function Apply-HerdrSpanish {
+function Apply-HerdrSpanis {
     try {
         $panesJson = & $herdrCmd pane list
         if (-not $panesJson) { return }
@@ -46,9 +50,15 @@ function Apply-HerdrSpanish {
         foreach ($pane in $data.result.panes) {
             $paneId = $pane.pane_id
             $agentKey = $pane.agent
-            $displayAgent = if ($agentNames.ContainsKey($agentKey)) { $agentNames[$agentKey] } else { $agentKey }
+            
+            $displayAgent = if ($agentKey -and $agentIcons.ContainsKey($agentKey)) { 
+                $agentIcons[$agentKey] 
+            } elseif ($agentKey) { 
+                "🤖 $agentKey" 
+            } else { 
+                "🐚 Terminal" 
+            }
 
-            # Verificar si ya tiene las etiquetas en español
             $currentLabels = $pane.state_labels
             $needsUpdate = $false
 
@@ -58,7 +68,7 @@ function Apply-HerdrSpanish {
 
             if ($needsUpdate) {
                 & $herdrCmd pane report-metadata $paneId `
-                    --source "herdr-espanol" `
+                    --source "herdr-spanis" `
                     --display-agent "$displayAgent" `
                     --state-label "idle=Listo" `
                     --state-label "working=Trabajando..." `
@@ -68,18 +78,18 @@ function Apply-HerdrSpanish {
             }
         }
     } catch {
-        # Silencioso para evitar romper la sesión
+        # Silencioso para evitar interrumpir flujos de terminal
     }
 }
 
-Write-Host "Iniciando Herdr en Español..." -ForegroundColor Cyan
-Apply-HerdrSpanish
-Write-Host "Etiquetas en español aplicadas a todos los paneles activos." -ForegroundColor Green
+Write-Host "Iniciando HerdrSpanis..." -ForegroundColor Cyan
+Apply-HerdrSpanis
+Write-Host "Herdr configurado con iconos de agentes y estados en español." -ForegroundColor Green
 
 if ($Watch) {
-    Write-Host "Modo continuo activo (verificando cada $IntervalSeconds segundos). Presiona Ctrl+C para detener." -ForegroundColor Yellow
+    Write-Host "Modo continuo activo (vigilando paneles cada $IntervalSeconds s). Presiona Ctrl+C para salir." -ForegroundColor Yellow
     while ($true) {
         Start-Sleep -Seconds $IntervalSeconds
-        Apply-HerdrSpanish
+        Apply-HerdrSpanis
     }
 }
