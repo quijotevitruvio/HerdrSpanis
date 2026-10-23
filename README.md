@@ -2,20 +2,20 @@
 
 # HerdrSpanis 🇪🇸
 
-[![Herdr Plugin](https://img.shields.io/badge/Herdr-Plugin-6366f1?style=for-the-badge&logo=terminal)](https://herdr.dev/plugins)
+[![Herdr](https://img.shields.io/badge/Herdr-v0.9.5-6366f1?style=for-the-badge&logo=terminal)](https://herdr.dev)
 [![GitHub Stars](https://img.shields.io/github/stars/quijotevitruvio/HerdrSpanis?style=for-the-badge&logo=github&color=gold)](https://github.com/quijotevitruvio/HerdrSpanis/stargazers)
 [![Donar con PayPal](https://img.shields.io/badge/Donar-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/bibliotecologo)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=for-the-badge)](https://github.com/quijotevitruvio/HerdrSpanis)
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue?style=for-the-badge)](https://github.com/quijotevitruvio/HerdrSpanis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**La solución definitiva para tener [Herdr](https://herdr.dev) completamente en español sin perder las actualizaciones ni el binario oficial.**  
+**La solución definitiva para tener [Herdr](https://herdr.dev) 100% en español sin perder las actualizaciones ni el binario oficial.**  
 *The ultimate solution for a 100% Spanish Herdr experience without losing official upstream releases.*
 
 ---
 
 ### 🌐 Selecciona tu Idioma / Select your Language
 
-[🇪🇸 **Leer en Español (Guía para Principiantes)**](#-español) &nbsp;&nbsp;|&nbsp;&nbsp; [🇬🇧 **Read in English (Beginner Guide)**](#-english)
+[🇪🇸 **Leer en Español**](#-español) &nbsp;&nbsp;|&nbsp;&nbsp; [🇬🇧 **Read in English**](#-english)
 
 ---
 
@@ -24,110 +24,86 @@
 <br/>
 
 <details open>
-<summary><h2 id="-español" style="display:inline;">🇪🇸 Español — Guía Paso a Paso (Para Dummies)</h2></summary>
+<summary><h2 id="-español" style="display:inline;">🇪🇸 Español — Guía Rápida</h2></summary>
 
-### 💡 ¿Qué es HerdrSpanis y por qué lo necesitas?
+### 💡 ¿Por qué HerdrSpanis?
 
-[Herdr](https://herdr.dev) es un gestor y multiplexor de terminales diseñado para trabajar con agentes de Inteligencia Artificial (Antigravity, Claude, Hermes, OpenCode, Codex, Devin, etc.). Sin embargo, su interfaz original viene **100% en inglés**.
+[Herdr](https://herdr.dev) es un potente multiplexor de terminales para agentes de Inteligencia Artificial (Antigravity, Claude, Hermes, OpenCode, Codex, Devin, etc.). Sin embargo, su interfaz original viene **completamente en inglés**.
 
-**HerdrSpanis resuelve esto por completo:**
-* Traduce absolutamente toda la interfaz (`espacios`, `agentes`, `menú`, `configuración` y clic derecho).
-* Traduce los estados de las IAs a español real: `Listo`, `Trabajando...`, `Esperando tu respuesta`.
-* Sustituye los emojis genéricos por los **iconos tipográficos oficiales** de cada IA.
-* **No pierdes la versión oficial:** Puedes volver al inglés oficial cuando quieras y actualizarte con cada nueva versión de Herdr.
+**HerdrSpanis lo traduce todo con un solo comando y sin romper nada:**
+* ✅ **100% en Español:** Barra lateral (`espacios`, `agentes`, `menú`), menús contextuales de clic derecho y configuración.
+* ✅ **Ciclo de vida en español:** `Listo`, `Trabajando...`, `Esperando tu respuesta`, `Completado`.
+* ✅ **Iconos oficiales tipográficos:** Cada IA tiene su glifo distintivo en lugar de emojis planos.
+* ✅ **Seguridad total:** Mantiene una copia de tu binario oficial (`herdr-original.exe`). Puedes alternar entre español e inglés cuando quieras.
 
 ---
 
-### 🚀 Instalación Ultra Fácil en 1 Solo Paso (Recomendada)
+### 🚀 Instalación en 1 Solo Paso
 
-Si estás en **Windows**, abre PowerShell (la terminal azul o Windows Terminal) y pega esta única línea:
+Abre PowerShell (o Windows Terminal) y pega este comando:
 
 ```powershell
 irm https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/instalar.ps1 | iex
 ```
 
-#### ¿Qué hace este comando automáticamente por ti?
-1. Detecta si ya tienes Herdr instalado (si no lo tienes, lo instala por ti).
-2. Hace una copia de respaldo segura de tu ejecutable oficial (`herdr-original.exe`).
-3. Descarga la versión en español ya compilada y optimizada.
-4. Instala los comandos globales en tu sistema (`herdr`, `herdr-idioma`, `herdr-actualizar-es`).
-5. ¡Listo! Solo abres una nueva terminal, escribes `herdr` y ya lo ves todo en español.
+> **¿Qué hace automáticamente?**  
+> 1. Detecta tu versión de Herdr (o la instala si no la tienes).  
+> 2. Guarda un respaldo seguro del ejecutable oficial (`herdr-original.exe`).  
+> 3. Instala Herdr en Español optimizado con sus librerías de terminal.  
+> 4. Deja configurados los comandos globales en tu sistema.
 
 ---
 
-### 🎮 Comandos Disponibles y Cómo Usarlos
+### 🎮 Comandos Globales
 
-Una vez instalado, tienes estos sencillos comandos en cualquier ventana de tu computadora:
+Una vez instalado, usa estos comandos directamente en cualquier terminal:
 
-| Comando | ¿Qué hace? | ¿Cuándo usarlo? |
-| :--- | :--- | :--- |
-| `herdr` | Inicia Herdr normalmente. | Para abrir tu entorno de trabajo con agentes IA. |
-| `herdr-idioma es` | Activa el modo **100% en Español**. | Cuando quieras ver toda la interfaz en español. |
-| `herdr-idioma en` | Restaura el **Inglés oficial de fábrica**. | Cuando quieras volver temporalmente al inglés original. |
-| `herdr-idioma` | Muestra el estado del idioma actual. | Para verificar qué versión tienes activa. |
-| `herdr-actualizar-es` | Actualiza Herdr y sincroniza el español. | Cada vez que el equipo de Herdr lance una nueva versión oficial. |
-
----
-
-### 🛠️ Métodos Alternativos de Instalación
-
-Si prefieres hacerlo manualmente según tu caso:
-
-#### Método A: Como Plugin Oficial de Herdr (Solo estados e iconos)
-Si ya tienes Herdr oficial abierto y solo quieres traducir los estados de los agentes e iconos:
-```bash
-herdr plugin install quijotevitruvio/HerdrSpanis
-```
-
-#### Método B: Descargar el Ejecutable Directo (.exe)
-1. Ve a la pestaña de [**Releases**](https://github.com/quijotevitruvio/HerdrSpanis/releases).
-2. Descarga el archivo [`herdr-es.exe`](https://github.com/quijotevitruvio/HerdrSpanis/releases/download/v0.9.5-espanol/herdr-es.exe).
-3. Haz doble clic o ejecútalo en tu terminal: `.\herdr-es.exe`.
+| Comando | Acción |
+| :--- | :--- |
+| `herdr` | Inicia Herdr completamente en español. |
+| `herdr-idioma es` | Activa el modo **100% en Español**. |
+| `herdr-idioma en` | Vuelve al **Inglés oficial de fábrica** sin desinstalar nada. |
+| `herdr-idioma` | Consulta qué idioma está activo en este momento. |
+| `herdr-actualizar-es` | Actualiza Herdr y sincroniza el español con la versión más reciente. |
 
 ---
 
 ### ✨ Iconos Canónicos de Agentes IA
 
-HerdrSpanis reemplaza los emojis planos por la identidad visual tipográfica de cada herramienta:
+HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos oficiales:
 
-| Agente / CLI | Icono | Estado traducido |
-| :--- | :---: | :--- |
-| **Google Antigravity** | `󰚩 Antigravity` | `idle` ➔ **Listo** |
-| **Nous Hermes** | `⚚ Hermes` | `working` ➔ **Trabajando...** |
-| **OpenCode** | ` OpenCode` | `blocked` ➔ **Esperando tu respuesta** |
-| **Anthropic Claude Code**| `󰭻 Claude` | `done` ➔ **Completado** |
-| **Codex** | `󰘦 Codex` | `unknown` ➔ **Desconocido** |
-| **GitHub Copilot** | ` GitHub Copilot` | |
-| **Devin** | `󰆍 Devin` | |
-| **Cursor** | `󰨞 Cursor` | |
-| **xAI Grok** | `󰛡 Grok` | |
-| **Moonshot Kimi** | `󰽤 Kimi` | |
-| **Alibaba Qwen** | `󰈸 Qwen` | |
+* **`󰚩 Antigravity`** (Google Antigravity CLI)
+* **`⚚ Hermes`** (Nous Research Hermes Agent)
+* **` OpenCode`** (OpenCode TUI)
+* **`󰭻 Claude`** (Anthropic Claude Code)
+* **`󰘦 Codex`** (Codex)
+* **` GitHub Copilot`** (GitHub Copilot CLI)
+* **`󰆍 Devin`** (Devin Terminal)
+* **`󰨞 Cursor`** (Cursor CLI)
+* **`󰛡 Grok`** (xAI Grok)
+* **`󰽤 Kimi`** (Moonshot Kimi)
+* **`󰈸 Qwen`** (Alibaba Qwen Code)
 
 ---
 
-### 📖 Guía Rápida de Atajos de Teclado
-Dentro de Herdr puedes abrir en cualquier momento la chuleta modal de atajos en español:
-```bash
-herdr plugin pane open --plugin herdr-spanis --entrypoint menu-ayuda --placement overlay
-```
+### 📖 Atajos de Teclado Útiles
 
-* **Prefijo por defecto:** `Ctrl + b`
+* **Prefijo:** `Ctrl + b`
 * `Ctrl + b` luego `v`: Dividir panel verticalmente (derecha).
 * `Ctrl + b` luego `-`: Dividir panel horizontalmente (abajo).
-* `Ctrl + b` luego `z`: Maximizar o des-maximizar panel.
-* `Ctrl + b` luego `c`: Crear nueva pestaña.
-* `Ctrl + b` luego `w`: Abrir menú de espacios de trabajo.
-* `Ctrl + b` luego `x`: Cerrar panel.
+* `Ctrl + b` luego `z`: Maximizar / restaurar panel.
+* `Ctrl + b` luego `c`: Nueva pestaña.
+* `Ctrl + b` luego `w`: Menú de espacios de trabajo.
+* `Ctrl + b` luego `x`: Cerrar panel actual.
 
 ---
 
-### 💖 Apoya este Proyecto
+### 💖 Apoya el Proyecto
 
-Si este proyecto te ha sido útil, te ahorró dolores de cabeza o te ayuda a trabajar más cómodo en tu idioma:
+Si esta herramienta te ayuda en tu día a día programando con Inteligencia Artificial:
 
-* ⭐ **Regálanos una estrella en GitHub:** [github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis) (¡Nos ayuda muchísimo a ganar visibilidad!).
-* ☕ **Donaciones por PayPal:** Si deseas invitarme un café o apoyar el mantenimiento de futuras versiones y traducciones:
+* ⭐ **Danos una estrella en GitHub:** [github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
+* ☕ **Donaciones por PayPal:** Invítame un café o apoya el mantenimiento continuo:  
   👉 **[https://paypal.me/bibliotecologo](https://paypal.me/bibliotecologo)**
 
 </details>
@@ -139,60 +115,46 @@ Si este proyecto te ha sido útil, te ahorró dolores de cabeza o te ayuda a tra
 <br/>
 
 <details>
-<summary><h2 id="-english" style="display:inline;">🇬🇧 English — Beginner-Friendly Guide</h2></summary>
+<summary><h2 id="-english" style="display:inline;">🇬🇧 English — Quickstart Guide</h2></summary>
 
-### 💡 What is HerdrSpanis?
+### 💡 Why HerdrSpanis?
 
-[Herdr](https://herdr.dev) is an agent-centric terminal workspace manager for AI coding tools. By default, its entire interface is hardcoded in English.
+[Herdr](https://herdr.dev) is a terminal workspace multiplexer built for AI coding agents. By default, the interface is hardcoded in English.
 
-**HerdrSpanis** provides complete Spanish localization without losing official upstream support:
-* Translates 100% of the native terminal TUI (`espacios`, `agentes`, `menú`, context menus, settings).
-* Translates lifecycle states: `Listo` (Ready), `Trabajando...` (Working), `Esperando tu respuesta` (Waiting for input).
-* Adds authentic Nerd Font / glyph icons for AI coding agents.
-* Keeps the official upstream executable backed up with 1-second language toggling.
+**HerdrSpanis** provides full Spanish localization while preserving official upstream compatibility:
+* Translates 100% of the interface (`espacios`, `agentes`, context menus, settings).
+* Translates AI lifecycle states: `Listo` (Ready), `Trabajando...` (Working), `Esperando tu respuesta` (Waiting for input).
+* Adds authentic developer glyphs/icons for AI agents.
+* Retains the official upstream binary as a backup (`herdr-original.exe`) with 1-click language toggling.
 
 ---
 
-### 🚀 1-Line Automatic Installer (Windows)
+### 🚀 1-Step Installation
 
-Open PowerShell and paste this single command:
+Run in PowerShell:
 
 ```powershell
 irm https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/instalar.ps1 | iex
 ```
 
-It will detect your current Herdr install, create a safety backup (`herdr-original.exe`), install the translated binary, and configure global commands.
-
 ---
 
-### 🎮 Global Command Reference
+### 🎮 Global Commands
 
-| Command | Description |
+| Command | Action |
 | :--- | :--- |
 | `herdr` | Launch Herdr in full Spanish. |
-| `herdr-idioma es` | Activate 100% Spanish interface. |
-| `herdr-idioma en` | Restore official English factory binary. |
-| `herdr-idioma` | Check current active language. |
-| `herdr-actualizar-es` | Auto-sync and rebuild/download Spanish version when Herdr updates. |
-
----
-
-### 🛠️ Alternative Installation Methods
-
-* **Official Plugin Only (States & Icons):**
-  ```bash
-  herdr plugin install quijotevitruvio/HerdrSpanis
-  ```
-* **Direct Standalone Binary:**
-  Download [`herdr-es.exe`](https://github.com/quijotevitruvio/HerdrSpanis/releases/download/v0.9.5-espanol/herdr-es.exe) from [Releases](https://github.com/quijotevitruvio/HerdrSpanis/releases).
+| `herdr-idioma es` | Switch to Spanish interface. |
+| `herdr-idioma en` | Revert to official upstream English binary. |
+| `herdr-idioma` | Check active language. |
+| `herdr-actualizar-es` | Auto-sync and update Spanish version against upstream releases. |
 
 ---
 
 ### 💖 Support & Donations
 
-If this project saves you time or makes your terminal workflow easier:
-* ⭐ **Star the repository:** [quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
-* ☕ **Donate via PayPal:** [https://paypal.me/bibliotecologo](https://paypal.me/bibliotecologo)
+* ⭐ **Star this repo:** [quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
+* ☕ **PayPal Donation:** [https://paypal.me/bibliotecologo](https://paypal.me/bibliotecologo)
 
 </details>
 
@@ -200,6 +162,5 @@ If this project saves you time or makes your terminal workflow easier:
 
 ---
 <div align="center">
-  Hecho con dedicación para la comunidad hispanohablante de desarrollo con IA.  
   <b><a href="https://paypal.me/bibliotecologo">☕ Apoyar en PayPal</a> &nbsp;•&nbsp; <a href="https://github.com/quijotevitruvio/HerdrSpanis">⭐ Dar Estrella en GitHub</a></b>
 </div>

@@ -116,6 +116,12 @@ if ($userPath -notmatch [regex]::Escape($currentLink)) {
     Write-Host "[OK] Variable PATH de usuario actualizada para usar 'current'." -ForegroundColor Green
 }
 
+# 5. Activar plugin oficial de estados e iconos
+try {
+    Write-Host "    Activando plugin oficial para iconos y estados de agentes..." -ForegroundColor Gray
+    & "$dirEspanol\herdr.exe" plugin install quijotevitruvio/HerdrSpanis 2>$null
+} catch {}
+
 # ==============================================================================
 # MENSAJE DE ÉXITO Y DONACIONES / APOYO
 # ==============================================================================
