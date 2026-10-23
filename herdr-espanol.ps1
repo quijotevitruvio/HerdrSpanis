@@ -3,8 +3,10 @@
 .SYNOPSIS
     HerdrSpanis - Localización y tematización de agentes para Herdr.
 .DESCRIPTION
-    Aplica etiquetas de estado en español (Listo, Trabajando..., Esperando tu respuesta, etc.)
-    y añade iconos reconocibles (Nerd Fonts / Unicode) a cada agente en Herdr.
+    Cumple con la especificación oficial de https://herdr.dev/docs/plugins/:
+    - Usa $env:HERDR_BIN_PATH dinámicamente para máxima portabilidad.
+    - Soporta invocación por [[startup]], [[events]] (HERDR_PLUGIN_EVENT_JSON) y [[actions]].
+    - Aplica etiquetas de estado en español y asigna iconos visuales a cada IA/Agente.
 #>
 
 [CmdletBinding()]
@@ -15,28 +17,92 @@ param(
 
 $ErrorActionPreference = "SilentlyContinue"
 
-# Ruta al ejecutable de herdr
-$herdrCmd = "herdr"
-if (-not (Get-Command $herdrCmd -ErrorAction SilentlyContinue)) {
-    $herdrFallback = "C:\Users\Rocka\.herdr\packages\standalone\releases\0.9.5-x86_64-pc-windows-msvc\herdr.exe"
-    if (Test-Path $herdrFallback) {
-        $herdrCmd = $herdrFallback
+# 1. Resolver el binario de Herdr según https://herdr.dev/docs/plugins/ (HERDR_BIN_PATH primero)
+$herdrCmd = if ($env:HERDR_BIN_PATH -and (Test-Path $env:HERDR_BIN_PATH)) {
+    $env:HERDR_BIN_PATH
+} elseif (Get-Command "herdr" -ErrorAction SilentlyContinue) {
+    (Get-Command "herdr").Source
+} else {
+    $currentWin = Join-Path $HOME ".herdr\packages\standalone\current\herdr.exe"
+    $currentUnix = Join-Path $HOME ".herdr/packages/standalone/current/herdr"
+    if (Test-Path $currentWin) {
+        $currentWin
+    } elseif (Test-Path $currentUnix) {
+        $currentUnix
+    } else {
+        $latestRelease = Get-ChildItem -Path (Join-Path $HOME ".herdr\packages\standalone\releases") -Directory -ErrorAction SilentlyContinue |
+            Sort-Object LastWriteTime -Descending | Select-Object -First 1
+        if ($latestRelease) {
+            Join-Path $latestRelease.FullName "herdr.exe"
+        } else {
+            "herdr"
+        }
     }
 }
 
-# Iconos y nombres estilizados para cada IA/Agente
+# 2. Catálogo de iconos por agente reconocido en Herdr
 $agentIcons = @{
-    "agy"        = "✨ Antigravity"
-    "hermes"     = "⚡ Hermes"
-    "opencode"   = "🤖 OpenCode"
-    "claude"     = "🧠 Claude"
-    "codex"      = "💻 Codex"
-    "copilot"    = "🐙 Copilot"
-    "devin"      = "🎯 Devin"
-    "cursor"     = "⚡ Cursor"
-    "grok"       = "🌌 Grok"
-    "kimi"       = "🌙 Kimi"
-    "qwen"       = "🐉 Qwen"
+    "agy"             = "✨ Antigravity"
+    "antigravity-cli" = "✨ Antigravity"
+    "gemini"          = "✨ Gemini"
+    "hermes"          = "⚡ Hermes"
+    "opencode"        = "🤖 OpenCode"
+    "claude"          = "🧠 Claude"
+    "codex"           = "💻 Codex"
+    "copilot"         = "🐙 Copilot"
+    "devin"           = "🎯 Devin"
+    "cursor"          = "⚡ Cursor"
+    "grok"            = "🌌 Grok"
+    "kimi"            = "🌙 Kimi"
+    "qwen"            = "🐉 Qwen"
+    "qwen-code"       = "🐉 Qwen"
+    "qoder"           = "🛠️ Qoder"
+    "qodercli"        = "🛠️ Qoder"
+    "droid"           = "🤖 Droid"
+    "kilo"            = "⚖️ Kilo"
+    "letta"           = "🧬 Letta"
+    "mastracode"      = "🎭 Mastra"
+    "pi"              = "🥧 Pi"
+    "omp"             = "⚡ OhMyPosh"
+}
+
+function Update-PaneSpanishMetadata {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$PaneId,
+        [string]$AgentKey,
+        [string]$CurrentDisplayAgent,
+        $CurrentLabels
+    )
+
+    $displayAgent = if ($AgentKey -and $agentIcons.ContainsKey($AgentKey)) {
+        $agentIcons[$AgentKey]
+    } elseif ($AgentKey) {
+        "🤖 $AgentKey"
+    } else {
+        "🐚 Terminal"
+    }
+
+    $needsUpdate = $false
+    if (-not $CurrentLabels -or
+        $CurrentLabels.idle -ne "Listo" -or
+        $CurrentLabels.working -ne "Trabajando..." -or
+        $CurrentLabels.blocked -ne "Esperando tu respuesta" -or
+        $CurrentLabels.done -ne "Completado" -or
+        $CurrentDisplayAgent -ne $displayAgent) {
+        $needsUpdate = $true
+    }
+
+    if ($needsUpdate) {
+        & $herdrCmd pane report-metadata $PaneId `
+            --source "herdr-spanis" `
+            --display-agent "$displayAgent" `
+            --state-label "idle=Listo" `
+            --state-label "working=Trabajando..." `
+            --state-label "blocked=Esperando tu respuesta" `
+            --state-label "done=Completado" `
+            --state-label "unknown=Desconocido" | Out-Null
+    }
 }
 
 function Apply-HerdrSpanis {
@@ -48,46 +114,21 @@ function Apply-HerdrSpanis {
         if (-not $data.result.panes) { return }
 
         foreach ($pane in $data.result.panes) {
-            $paneId = $pane.pane_id
-            $agentKey = $pane.agent
-            
-            $displayAgent = if ($agentKey -and $agentIcons.ContainsKey($agentKey)) { 
-                $agentIcons[$agentKey] 
-            } elseif ($agentKey) { 
-                "🤖 $agentKey" 
-            } else { 
-                "🐚 Terminal" 
-            }
-
-            $currentLabels = $pane.state_labels
-            $needsUpdate = $false
-
-            if (-not $currentLabels -or $currentLabels.idle -ne "Listo" -or $currentLabels.working -ne "Trabajando..." -or $pane.display_agent -ne $displayAgent) {
-                $needsUpdate = $true
-            }
-
-            if ($needsUpdate) {
-                & $herdrCmd pane report-metadata $paneId `
-                    --source "herdr-spanis" `
-                    --display-agent "$displayAgent" `
-                    --state-label "idle=Listo" `
-                    --state-label "working=Trabajando..." `
-                    --state-label "blocked=Esperando tu respuesta" `
-                    --state-label "done=Completado" `
-                    --state-label "unknown=Desconocido"
-            }
+            Update-PaneSpanishMetadata `
+                -PaneId $pane.pane_id `
+                -AgentKey $pane.agent `
+                -CurrentDisplayAgent $pane.display_agent `
+                -CurrentLabels $pane.state_labels
         }
     } catch {
-        # Silencioso para evitar interrumpir flujos de terminal
+        # Silencioso para evitar interrumpir flujos de terminal o hooks
     }
 }
 
-Write-Host "Iniciando HerdrSpanis..." -ForegroundColor Cyan
 Apply-HerdrSpanis
-Write-Host "Herdr configurado con iconos de agentes y estados en español." -ForegroundColor Green
 
 if ($Watch) {
-    Write-Host "Modo continuo activo (vigilando paneles cada $IntervalSeconds s). Presiona Ctrl+C para salir." -ForegroundColor Yellow
+    Write-Host "Iniciando HerdrSpanis en modo continuo (cada $IntervalSeconds s)..." -ForegroundColor Cyan
     while ($true) {
         Start-Sleep -Seconds $IntervalSeconds
         Apply-HerdrSpanis

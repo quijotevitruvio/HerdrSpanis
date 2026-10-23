@@ -1,50 +1,74 @@
 # HerdrSpanis 🇪🇸
 
-Skill y demonio de personalización visual y localización al español para **[Herdr](https://herdr.dev)**.
+Plugin oficial y completo de localización, tematización de agentes AI y menú de ayuda en español para **[Herdr](https://herdr.dev)**.
 
-Reemplaza los textos en inglés de estado por etiquetas claras en español y asigna iconos distintivos a cada IA / Agente de codificación en la barra lateral.
-
-## ✨ Iconos de Agentes
-
-| Agente | Nombre con Icono |
-| :--- | :--- |
-| `agy` | ✨ Antigravity |
-| `hermes` | ⚡ Hermes |
-| `opencode` | 🤖 OpenCode |
-| `claude` | 🧠 Claude |
-| `copilot` | 🐙 Copilot |
-| `devin` | 🎯 Devin |
-| `cursor` | ⚡ Cursor |
-| `grok` | 🌌 Grok |
-| `qwen` | 🐉 Qwen |
-| `kimi` | 🌙 Kimi |
-
-## 📊 Estados en Español
-
-| Original | En HerdrSpanis |
-| :--- | :--- |
-| `idle` | **Listo** |
-| `working` | **Trabajando...** |
-| `blocked` | **Esperando tu respuesta** |
-| `done` | **Completado** |
-| `unknown` | **Desconocido** |
+Cumple estrictamente con la especificación oficial de **[https://herdr.dev/docs/plugins/](https://herdr.dev/docs/plugins/)**.
 
 ---
 
-## 🚀 Uso Rápido
+## ✨ Características
 
-### Aplicar cambios ahora:
-```powershell
-pwsh -File ./herdr-espanol.ps1
+### 1. Tematización de Agentes con Iconos Visuales
+Identifica fácilmente cada inteligencia artificial en la barra lateral de Herdr:
+- `✨ Antigravity` (`agy` / `gemini`)
+- `⚡ Hermes` (`hermes`)
+- `🤖 OpenCode` (`opencode`)
+- `🧠 Claude` (`claude`)
+- `💻 Codex` (`codex`)
+- `🐙 Copilot` (`copilot`)
+- `🎯 Devin` (`devin`)
+- `⚡ Cursor` (`cursor`)
+- `🌌 Grok` (`grok`)
+- `🌙 Kimi` (`kimi`)
+- `🐉 Qwen` (`qwen`)
+- `🛠️ Qoder` (`qodercli`)
+- `🧬 Letta` (`letta`)
+
+### 2. Estados del Ciclo de Vida Traducidos
+- `idle` ➔ **Listo**
+- `working` ➔ **Trabajando...**
+- `blocked` ➔ **Esperando tu respuesta**
+- `done` ➔ **Completado**
+- `unknown` ➔ **Desconocido**
+
+### 3. Event Hooks Nativos (Sin Bucles)
+El plugin escucha los eventos del socket de Herdr:
+- `pane.created`
+- `pane.agent_detected`
+- `pane.agent_status_changed`
+- `tab.created`
+
+### 4. Menú y Atajos en Español (`[[panes]]` y `[[actions]]`)
+Añade una acción global y un panel emergente modal con la referencia completa de comandos traducidos al español.
+
+---
+
+## 🚀 Instalación
+
+```bash
+herdr plugin install quijotevitruvio/HerdrSpanis
 ```
 
-### Ejecutar como servicio vigilante en segundo plano:
-```powershell
-pwsh -File ./herdr-espanol.ps1 -Watch
+O para desarrollo local:
+```bash
+herdr plugin link /ruta/a/HerdrSpanis
 ```
 
 ---
 
-## 📦 Repositorio
-- GitHub: [https://github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
-- Licencia: MIT © [quijotevitruvio](https://github.com/quijotevitruvio)
+## 🛠️ Acciones Disponibles en Herdr
+
+Puedes invocar las acciones desde los menús contextuales de Herdr o mediante CLI:
+- **Traducir paneles e iconos:**
+  ```bash
+  herdr plugin action invoke traducir --plugin herdr-spanis
+  ```
+- **Abrir Menú y Atajos en Español:**
+  ```bash
+  herdr plugin pane open herdr-spanis menu-ayuda
+  ```
+
+---
+
+## 📄 Licencia
+MIT © [quijotevitruvio](https://github.com/quijotevitruvio)
