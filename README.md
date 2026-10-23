@@ -1,88 +1,66 @@
-# HerdrSpanis 🇪🇸 / 🇬🇧
+<div align="center">
 
-**HerdrSpanis** es una solución completa de localización al español y tematización visual para **[Herdr](https://herdr.dev)** (el gestor y multiplexor de terminales para flotas de agentes de IA).
+# HerdrSpanis
 
-Ofrece dos modos de uso complementarios:
-1. **Plugin Oficial de Herdr (`herdr-plugin.toml`):** Traduce dinámicamente los estados del ciclo de vida y tematiza la barra lateral con los iconos limpios y originales de cada IA sin tocar ningún ejecutable.
-2. **Binario Nativo en Español (`herdr-es.exe`):** Binario optimizado y recompilado desde el código fuente oficial en Rust que traduce de raíz el 100% de la interfaz de la terminal (`espacios`, `agentes`, menús contextuales, configuración y atajos de teclado).
+[![Herdr Plugin](https://img.shields.io/badge/Herdr-Plugin-6366f1?style=for-the-badge&logo=terminal)](https://herdr.dev/plugins)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=for-the-badge)](https://github.com/quijotevitruvio/HerdrSpanis)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
----
-
-## 🇪🇸 Español
-
-### Características Principales
-
-#### 1. Identificación Visual de Agentes (Iconos Nerd Fonts / Tipográficos)
-Sustituye los textos planos o emojis genéricos por símbolos tipográficos y glifos reconocibles de cada herramienta:
-* **`󰚩 Antigravity`** (`agy` / `gemini`)
-* **`⚚ Hermes`** (`hermes`)
-* **` OpenCode`** (`opencode`)
-* **`󰭻 Claude`** (`claude`)
-* **`󰘦 Codex`** (`codex`)
-* **` GitHub Copilot`** (`copilot`)
-* **`󰆍 Devin`** (`devin`)
-* **`󰨞 Cursor`** (`cursor`)
-* **`󰛡 Grok`** (`grok`)
-* **`󰽤 Kimi`** (`kimi`)
-* **`󰈸 Qwen`** (`qwen`)
-* **`󰘧 Qoder`** (`qodercli`)
-* **`󰐚 Letta`** (`letta`)
-
-#### 2. Ciclo de Vida Traducido al Español
-* `idle` ➔ **Listo**
-* `working` ➔ **Trabajando...**
-* `blocked` ➔ **Esperando tu respuesta**
-* `done` ➔ **Completado**
-* `unknown` ➔ **Desconocido**
-
-#### 3. Interfaz Completa en Español (Binario Nativo `herdr-es.exe`)
-* **Barra lateral:** `espacios`, `agentes`, `nuevo`, `menú`.
-* **Menú Global y Contextual (clic derecho):** `Renombrar`, `Cerrar`, `Nueva pestaña`, `Dividir a la derecha/abajo`, `Maximizar / Zoom`, `Configuración`, `Atajos de teclado`.
-* **Ajustes:** `tema`, `indicadores`, `sonido`, `notificaciones`, `integraciones`.
+**Localización al Español y Tematización de Agentes IA para [Herdr](https://herdr.dev)**  
+*Spanish Localization & AI Agent Visual Theming for [Herdr](https://herdr.dev)*
 
 ---
 
-### Instalación y Uso
+### 🌐 Selecciona tu Idioma / Select your Language
 
-#### Como Plugin de Herdr:
+[🇪🇸 **Leer en Español**](#-español) &nbsp;&nbsp;|&nbsp;&nbsp; [🇬🇧 **Read in English**](#-english)
+
+---
+
+</div>
+
+<br/>
+
+<details open>
+<summary><h2 id="-español" style="display:inline;">🇪🇸 Español</h2></summary>
+
+### 💡 ¿Qué es HerdrSpanis?
+
+**HerdrSpanis** es una solución pensada para que cualquier desarrollador hispanohablante disfrute de **Herdr** completamente en español, sin complicaciones ni comandos raros.
+
+Ofrece **dos formas fáciles de usarlo**, según lo que necesites:
+
+| Método | ¿Para quién es? | ¿Qué traduce? | Instalación |
+| :--- | :--- | :--- | :--- |
+| **Opción 1: Plugin Oficial** | Quienes ya usan Herdr oficial y quieren instalarlo en 1 segundo. | Estados de las IAs (`Listo`, `Trabajando...`, `Esperando tu respuesta`) e iconos de identidad. | `herdr plugin install quijotevitruvio/HerdrSpanis` |
+| **Opción 2: Herdr en Español Completo** | Quienes quieren que **absolutamente todo** (menús, clic derecho, configuración y barra lateral `espacios`) esté en español. | 100% de la interfaz completa de la terminal. | Descargar el instalador / ejecutable directo desde [Releases](../../releases). |
+
+---
+
+### 🚀 Instalación en 1 Paso
+
+#### Opción 1: Instalar como Plugin Oficial de Herdr
+Si ya tienes Herdr abierto, abre cualquier terminal y escribe:
 ```bash
 herdr plugin install quijotevitruvio/HerdrSpanis
 ```
+¡Y listo! Al iniciar Herdr, tus agentes y estados se adaptarán automáticamente al español.
 
-O para desarrollo local:
-```bash
-herdr plugin link F:\666999\0.Programador\HerdrEspañol
-```
-
-#### Para ejecutar la interfaz nativa 100% traducida:
-```powershell
-.\herdr-es.exe
-```
-
----
----
-
-## 🇬🇧 English
-
-### Overview
-
-**HerdrSpanis** provides comprehensive Spanish localization and visual agent branding for **[Herdr](https://herdr.dev)** (the terminal workspace manager built for autonomous AI coding agents).
-
-It delivers:
-1. **Official Herdr Workflow Plugin:** Dynamically translates lifecycle states and enhances the sidebar with clean typography and authentic developer glyphs for every recognized AI coding agent without patching binaries.
-2. **Full Native Spanish Binary (`herdr-es.exe`):** A production-ready executable compiled directly from upstream Rust source code that localizes 100% of the terminal TUI (`espacios`, `agentes`, context menus, settings, and keybind overlays).
+#### Opción 2: Descargar Herdr en Español Completo (100% Traducido)
+1. Ve a la sección de [**Releases**](../../releases).
+2. Descarga `herdr-es.exe`.
+3. Ejecútalo y tendrás toda la interfaz en español nativo (`espacios`, `agentes`, `menú`, `configuración`).
 
 ---
 
-### Features
+### ✨ Iconos Canónicos de Agentes
+HerdrSpanis reemplaza los emojis genéricos por los glifos tipográficos oficiales de cada inteligencia artificial:
 
-#### 1. Authentic AI Agent Icons (Nerd Fonts / Glyphs)
-Clean typographic symbols representing the original identity of each agent:
 * **`󰚩 Antigravity`** (Google Antigravity CLI)
 * **`⚚ Hermes`** (Nous Research Hermes Agent)
 * **` OpenCode`** (OpenCode TUI)
 * **`󰭻 Claude`** (Anthropic Claude Code)
-* **`󰘦 Codex`** (Codex CLI)
+* **`󰘦 Codex`** (Codex)
 * **` GitHub Copilot`** (GitHub Copilot CLI)
 * **`󰆍 Devin`** (Devin Terminal)
 * **`󰨞 Cursor`** (Cursor CLI)
@@ -90,35 +68,95 @@ Clean typographic symbols representing the original identity of each agent:
 * **`󰽤 Kimi`** (Moonshot Kimi)
 * **`󰈸 Qwen`** (Alibaba Qwen Code)
 
-#### 2. Localized Lifecycle States
-* `idle` ➔ **Listo**
-* `working` ➔ **Trabajando...**
-* `blocked` ➔ **Esperando tu respuesta**
-* `done` ➔ **Completado**
-* `unknown` ➔ **Desconocido**
+---
 
-#### 3. Native Spanish Shell (`herdr-es.exe`)
-* **Sidebar:** `espacios`, `agentes`, `nuevo`, `menú`.
-* **Context & Global Menus:** Fully translated popups, action triggers, and configuration screens.
+### 📊 Estados Traducidos
+- `idle` ➔ **Listo**
+- `working` ➔ **Trabajando...**
+- `blocked` ➔ **Esperando tu respuesta**
+- `done` ➔ **Completado**
+- `unknown` ➔ **Desconocido**
 
 ---
 
-### Installation & Quickstart
+### 📖 Menú y Guía Rápida de Atajos
+Si estás dentro de Herdr y quieres consultar todos los atajos en español en una ventana modal:
+```bash
+herdr plugin pane open --plugin herdr-spanis --entrypoint menu-ayuda --placement overlay
+```
 
-#### Via Herdr Plugin Marketplace:
+</details>
+
+<br/>
+
+---
+
+<br/>
+
+<details>
+<summary><h2 id="-english" style="display:inline;">🇬🇧 English</h2></summary>
+
+### 💡 What is HerdrSpanis?
+
+**HerdrSpanis** is an all-in-one Spanish localization and agent branding suite for **Herdr** (the terminal multiplexer designed for autonomous AI coding agents).
+
+It provides **two flexible installation tiers**:
+
+| Method | Best for | What it translates | How to use |
+| :--- | :--- | :--- | :--- |
+| **Option 1: Official Plugin** | Users wanting a lightweight, 1-second install via the Herdr marketplace. | AI lifecycle states (`Listo`, `Trabajando...`, `Esperando tu respuesta`) and authentic agent icons. | `herdr plugin install quijotevitruvio/HerdrSpanis` |
+| **Option 2: Full Spanish Herdr** | Users wanting a 100% Spanish terminal interface including native core menus and headers. | Complete TUI (`espacios`, `agentes`, context menus, settings, and keybinds). | Direct executable download from [Releases](../../releases). |
+
+---
+
+### 🚀 1-Step Installation
+
+#### Option 1: Install via Herdr Plugin Manager
+Run directly inside any terminal:
 ```bash
 herdr plugin install quijotevitruvio/HerdrSpanis
 ```
 
-#### Local Development Linking:
+#### Option 2: Full Spanish Native Binary
+1. Download `herdr-es.exe` directly from [**Releases**](../../releases).
+2. Launch it to enjoy the complete translated experience out-of-the-box.
+
+---
+
+### ✨ Authentic AI Agent Icons
+Clean Nerd Font glyphs representing each agent's true identity:
+* **`󰚩 Antigravity`** (Google Antigravity CLI)
+* **`⚚ Hermes`** (Nous Research Hermes Agent)
+* **` OpenCode`** (OpenCode TUI)
+* **`󰭻 Claude`** (Anthropic Claude Code)
+* **`󰘦 Codex`** (Codex)
+* **` GitHub Copilot`** (GitHub Copilot CLI)
+* **`󰆍 Devin`** (Devin Terminal)
+* **`󰨞 Cursor`** (Cursor CLI)
+* **`󰛡 Grok`** (xAI Grok)
+* **`󰽤 Kimi`** (Moonshot Kimi)
+* **`󰈸 Qwen`** (Alibaba Qwen Code)
+
+---
+
+### 📊 Translated Lifecycle States
+- `idle` ➔ **Listo** (Ready)
+- `working` ➔ **Trabajando...** (Working)
+- `blocked` ➔ **Esperando tu respuesta** (Waiting for input)
+- `done` ➔ **Completado** (Completed)
+- `unknown` ➔ **Desconocido** (Unknown)
+
+---
+
+### 📖 Interactive Keybind Guide
+Launch the in-app Spanish help cheat-sheet at any time:
 ```bash
-herdr plugin link F:\666999\0.Programador\HerdrEspañol
+herdr plugin pane open --plugin herdr-spanis --entrypoint menu-ayuda --placement overlay
 ```
 
-#### Running the Native Spanish TUI:
-```powershell
-.\herdr-es.exe
-```
+</details>
+
+<br/>
 
 ---
 
