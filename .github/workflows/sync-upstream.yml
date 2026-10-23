@@ -24,10 +24,14 @@ jobs:
       - name: Instalar Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Instalar Zig 0.16.0
-        uses: mlugg/setup-zig@v1
-        with:
-          version: 0.16.0
+      - name: Descargar e Instalar Zig 0.16.0
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://ziglang.org/download/0.16.0/zig-x86_64-windows-0.16.0.zip" -OutFile "$env:TEMP\zig.zip"
+          Expand-Archive -Path "$env:TEMP\zig.zip" -DestinationPath "$env:RUNNER_TEMP\zig" -Force
+          $extractedDir = Get-ChildItem "$env:RUNNER_TEMP\zig" -Directory | Select-Object -First 1
+          echo $extractedDir.FullName >> $env:GITHUB_PATH
+          & "$($extractedDir.FullName)\zig.exe" version
 
       - name: Clonar código upstream de Herdr
         run: |
@@ -60,17 +64,16 @@ jobs:
       - name: Instalar Dependencias Linux
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential pkg-config libfontconfig1-dev libfreetype6-dev musl-tools
+          sudo apt-get install -y build-essential pkg-config libfontconfig1-dev libfreetype6-dev xz-utils
 
       - name: Instalar Rust
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-unknown-linux-musl
 
-      - name: Instalar Zig 0.16.0
-        uses: mlugg/setup-zig@v1
-        with:
-          version: 0.16.0
+      - name: Descargar e Instalar Zig 0.16.0
+        run: |
+          curl -fsSL https://ziglang.org/download/0.16.0/zig-x86_64-linux-0.16.0.tar.xz | tar -xJ
+          echo "$PWD/zig-x86_64-linux-0.16.0" >> $GITHUB_PATH
+          $PWD/zig-x86_64-linux-0.16.0/zig version
 
       - name: Clonar código upstream de Herdr
         run: |
@@ -81,15 +84,11 @@ jobs:
           cd herdr-upstream
           git apply --reject --whitespace=fix ../patches/v0.9.5-espanol.patch || true
 
-      - name: Compilar Binario Linux Musl
+      - name: Compilar Binario Linux
         run: |
           cd herdr-upstream
-          cargo build --release --bin herdr --target x86_64-unknown-linux-musl || cargo build --release --bin herdr
-          if [ -f target/x86_64-unknown-linux-musl/release/herdr ]; then
-            cp target/x86_64-unknown-linux-musl/release/herdr ../herdr-es-linux-x86_64
-          else
-            cp target/release/herdr ../herdr-es-linux-x86_64
-          fi
+          cargo build --release --bin herdr
+          cp target/release/herdr ../herdr-es-linux-x86_64
           cd ..
           tar -czf herdr-es-linux-x86_64.tar.gz herdr-es-linux-x86_64
 
@@ -100,7 +99,7 @@ jobs:
           path: herdr-es-linux-x86_64.tar.gz
 
   build-macos:
-    name: Compilar macOS (Apple Silicon / Intel)
+    name: Compilar macOS (Apple Silicon arm64)
     runs-on: macos-latest
     steps:
       - name: Checkout HerdrSpanis
@@ -111,10 +110,11 @@ jobs:
         with:
           targets: aarch64-apple-darwin
 
-      - name: Instalar Zig 0.16.0
-        uses: mlugg/setup-zig@v1
-        with:
-          version: 0.16.0
+      - name: Descargar e Instalar Zig 0.16.0
+        run: |
+          curl -fsSL https://ziglang.org/download/0.16.0/zig-aarch64-macos-0.16.0.tar.xz | tar -xJ
+          echo "$PWD/zig-aarch64-macos-0.16.0" >> $GITHUB_PATH
+          $PWD/zig-aarch64-macos-0.16.0/zig version
 
       - name: Clonar código upstream de Herdr
         run: |
