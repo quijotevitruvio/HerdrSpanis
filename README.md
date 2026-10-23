@@ -16,6 +16,12 @@ Coordinar múltiples IAs a la vez (**Google Antigravity**, **Claude Code**, **No
 **¿Qué hace HerdrSpanis?**  
 Traduce de raíz absolutamente **toda la interfaz de Herdr al español** con 1 solo comando, sin perder el binario oficial ni tus configuraciones.
 
+<br/>
+
+<p align="center">
+  <img src="assets/CapHerdrSpanis.png" alt="Herdr en Español Captura de Pantalla" width="92%" style="border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.35);" />
+</p>
+
 ---
 
 ### 🌐 Selecciona tu Idioma / Select your Language
