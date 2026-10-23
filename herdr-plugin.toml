@@ -38,6 +38,20 @@ description = "Abre la guía interactiva y menú de comandos de Herdr completame
 contexts = ["global", "workspace", "tab", "pane"]
 command = ["pwsh", "-NoProfile", "-File", "ayuda-menu.ps1"]
 
+[[actions]]
+id = "cambiar-idioma"
+title = "Alternar Idioma (Español / Inglés Oficial)"
+description = "Permite alternar al instante entre el binario en español o el oficial en inglés sin alterar tus configuraciones."
+contexts = ["global"]
+command = ["pwsh", "-NoProfile", "-File", "scripts/herdr-idioma.ps1"]
+
+[[actions]]
+id = "actualizar-es"
+title = "Actualizar Herdr en Español"
+description = "Detecta la versión oficial más reciente y aplica la versión en español de forma transparente."
+contexts = ["global"]
+command = ["pwsh", "-NoProfile", "-File", "scripts/herdr-actualizar-es.ps1"]
+
 [[panes]]
 id = "menu-ayuda"
 title = "Menú y Atajos Herdr (Español)"

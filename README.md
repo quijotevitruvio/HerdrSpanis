@@ -33,11 +33,12 @@ Ofrece **dos formas fáciles de usarlo**, según lo que necesites:
 | Método | ¿Para quién es? | ¿Qué traduce? | Instalación |
 | :--- | :--- | :--- | :--- |
 | **Opción 1: Plugin Oficial** | Quienes ya usan Herdr oficial y quieren instalarlo en 1 segundo. | Estados de las IAs (`Listo`, `Trabajando...`, `Esperando tu respuesta`) e iconos de identidad. | `herdr plugin install quijotevitruvio/HerdrSpanis` |
-| **Opción 2: Herdr en Español Completo** | Quienes quieren que **absolutamente todo** (menús, clic derecho, configuración y barra lateral `espacios`) esté en español. | 100% de la interfaz completa de la terminal. | Descargar el instalador / ejecutable directo desde [Releases](../../releases). |
+| **Opción 2: Auto-Sincronización con el Oficial** | Quienes quieren estar **siempre en la versión oficial**, pero con **todo en español** y la opción de volver a inglés cuando quieran. | 100% de la interfaz completa de la terminal (`espacios`, `agentes`, menús y configuración) sin perder el binario oficial. | `herdr-actualizar-es` y alternar con `herdr-idioma [es\|en]` |
+| **Opción 3: Binario Directo** | Quienes solo quieren descargar y correr el ejecutable listo. | 100% de la interfaz completa de la terminal. | Descargar `herdr-es.exe` desde [Releases](../../releases). |
 
 ---
 
-### 🚀 Instalación en 1 Paso
+### 🚀 Instalación y Comandos
 
 #### Opción 1: Instalar como Plugin Oficial de Herdr
 Si ya tienes Herdr abierto, abre cualquier terminal y escribe:
@@ -46,7 +47,23 @@ herdr plugin install quijotevitruvio/HerdrSpanis
 ```
 ¡Y listo! Al iniciar Herdr, tus agentes y estados se adaptarán automáticamente al español.
 
-#### Opción 2: Descargar Herdr en Español Completo (100% Traducido)
+#### Opción 2: Sincronizar con el Oficial y Alternar Idioma al Instante
+Si usas la instalación oficial de Herdr (`herdr.dev`) y quieres que todo esté en español sin romper actualizaciones futuras:
+
+1. **Actualizar y sincronizar con el oficial:**
+   ```bash
+   herdr-actualizar-es
+   ```
+   *Detecta la versión oficial más reciente, hace backup del binario original (`herdr-original.exe`), descarga/aplica el español y lo deja listo.*
+
+2. **Alternar entre Español e Inglés oficial cuando quieras:**
+   ```bash
+   herdr-idioma es   # Activa la versión completa en Español
+   herdr-idioma en   # Vuelve al Inglés oficial original
+   herdr-idioma      # Muestra el idioma activo actual
+   ```
+
+#### Opción 3: Descargar Ejecutable Directo
 1. Ve a la sección de [**Releases**](../../releases).
 2. Descarga `herdr-es.exe`.
 3. Ejecútalo y tendrás toda la interfaz en español nativo (`espacios`, `agentes`, `menú`, `configuración`).
@@ -105,11 +122,12 @@ It provides **two flexible installation tiers**:
 | Method | Best for | What it translates | How to use |
 | :--- | :--- | :--- | :--- |
 | **Option 1: Official Plugin** | Users wanting a lightweight, 1-second install via the Herdr marketplace. | AI lifecycle states (`Listo`, `Trabajando...`, `Esperando tu respuesta`) and authentic agent icons. | `herdr plugin install quijotevitruvio/HerdrSpanis` |
-| **Option 2: Full Spanish Herdr** | Users wanting a 100% Spanish terminal interface including native core menus and headers. | Complete TUI (`espacios`, `agentes`, context menus, settings, and keybinds). | Direct executable download from [Releases](../../releases). |
+| **Option 2: Official Sync & Toggle** | Users who want to **stay on official Herdr releases** while enjoying a full Spanish interface with 1-click language toggling. | 100% of the terminal TUI (`espacios`, `agentes`, context menus, settings) while keeping official binaries backed up. | `herdr-actualizar-es` and toggle via `herdr-idioma [es\|en]` |
+| **Option 3: Direct Binary** | Users who just want a single standalone translated executable. | 100% of the terminal TUI. | Direct executable download from [Releases](../../releases). |
 
 ---
 
-### 🚀 1-Step Installation
+### 🚀 Installation & Commands
 
 #### Option 1: Install via Herdr Plugin Manager
 Run directly inside any terminal:
@@ -117,7 +135,23 @@ Run directly inside any terminal:
 herdr plugin install quijotevitruvio/HerdrSpanis
 ```
 
-#### Option 2: Full Spanish Native Binary
+#### Option 2: Sync with Official Upstream & Toggle Language
+For users running official `herdr.dev` installations:
+
+1. **Update and sync with official releases:**
+   ```bash
+   herdr-actualizar-es
+   ```
+   *Detects latest official release, creates backup (`herdr-original.exe`), downloads/builds Spanish release, and points the active link.*
+
+2. **Toggle language on demand:**
+   ```bash
+   herdr-idioma es   # Activate Spanish (100% localized)
+   herdr-idioma en   # Switch back to official English
+   herdr-idioma      # Show active language status
+   ```
+
+#### Option 3: Full Spanish Native Binary
 1. Download `herdr-es.exe` directly from [**Releases**](../../releases).
 2. Launch it to enjoy the complete translated experience out-of-the-box.
 
