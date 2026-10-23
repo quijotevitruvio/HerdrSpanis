@@ -1,6 +1,6 @@
 <div align="center">
 
-# HerdrSpanis 🇪🇸
+# 🇪🇸 HerdrSpanis 🚀
 
 [![Herdr](https://img.shields.io/badge/Herdr-v0.9.5-6366f1?style=for-the-badge&logo=terminal)](https://herdr.dev)
 [![GitHub Stars](https://img.shields.io/github/stars/quijotevitruvio/HerdrSpanis?style=for-the-badge&logo=github&color=gold)](https://github.com/quijotevitruvio/HerdrSpanis/stargazers)
@@ -8,8 +8,13 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=for-the-badge)](https://github.com/quijotevitruvio/HerdrSpanis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-**La solución definitiva para tener [Herdr](https://herdr.dev) 100% en español sin perder las actualizaciones ni el binario oficial.**  
-*The ultimate solution for a 100% Spanish Herdr experience without losing official upstream releases.*
+### 🗼 La Torre de Control para programar con Inteligencia Artificial, ahora 100% en Español ✨
+
+**¿Para qué sirve?**  
+Coordinar múltiples IAs a la vez (**Google Antigravity**, **Claude Code**, **Nous Hermes**, **OpenCode**, **Devin**) en una sola ventana organizada, sabiendo en tiempo real si cada agente está `Listo`, `Trabajando...` o `Esperando tu respuesta`.
+
+**¿Qué hace HerdrSpanis?**  
+Traduce de raíz absolutamente **toda la interfaz de Herdr al español** con 1 solo comando, sin perder el binario oficial ni tus configuraciones.
 
 ---
 
