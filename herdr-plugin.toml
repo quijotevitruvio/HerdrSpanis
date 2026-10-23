@@ -1,46 +1,46 @@
 id = "herdr-spanis"
 name = "HerdrSpanis"
-version = "0.2.0"
+version = "0.2.1"
 min_herdr_version = "0.6.0"
 description = "Herdr en Español: Localización de estados del ciclo de vida y tematización de agentes AI con iconos visuales (✨ Antigravity, ⚡ Hermes, 🤖 OpenCode, 🧠 Claude)."
 platforms = ["windows", "linux", "macos"]
 
 [[startup]]
-command = ["pwsh", "-File", "herdr-espanol.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[events]]
 on = "pane.created"
-command = ["pwsh", "-File", "herdr-espanol.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[events]]
 on = "pane.agent_detected"
-command = ["pwsh", "-File", "herdr-espanol.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[events]]
 on = "pane.agent_status_changed"
-command = ["pwsh", "-File", "herdr-espanol.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[events]]
 on = "tab.created"
-command = ["pwsh", "-File", "herdr-espanol.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[actions]]
 id = "traducir"
 title = "Traducir paneles e iconos a Español"
 description = "Aplica de inmediato las etiquetas en español y los iconos distintivos a todos los agentes activos en Herdr."
 contexts = ["global", "workspace", "tab", "pane"]
-command = ["pwsh", "-File", "herdr-espanol.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[actions]]
 id = "ayuda"
 title = "Menú y Atajos en Español"
 description = "Abre la guía interactiva y menú de comandos de Herdr completamente traducido al español."
 contexts = ["global", "workspace", "tab", "pane"]
-command = ["pwsh", "-File", "ayuda-menu.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "ayuda-menu.ps1"]
 
 [[panes]]
 id = "menu-ayuda"
 title = "Menú y Atajos Herdr (Español)"
 description = "Panel emergente con la guía rápida de atajos y navegación de Herdr en español."
 placement = "popup"
-command = ["pwsh", "-File", "ayuda-menu.ps1"]
+command = ["pwsh", "-NoProfile", "-File", "ayuda-menu.ps1"]
