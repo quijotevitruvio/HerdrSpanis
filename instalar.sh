@@ -110,6 +110,11 @@ cat << "EOF"
   ☕  ¿QUIERES APOYAR EL DESARROLLO CONTINUO?
       Cómprame un café o dona a través de PayPal:
       👉 https://paypal.me/bibliotecologo
+
+  👨‍💻  CREADO POR ANDRÉS VALENCIA TOBÓN
+      X (Twitter): https://x.com/quijotevitruvio
+      LinkedIn:    https://www.linkedin.com/in/andrés-valencia-tobón/
+      TikTok:      https://www.tiktok.com/@quijotevitruvio
   ────────────────────────────────────────────────────────────────────────────
 EOF
 echo -e "${NC}"

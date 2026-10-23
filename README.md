@@ -5,6 +5,9 @@
 [![Herdr](https://img.shields.io/badge/Herdr-v0.9.5-6366f1?style=for-the-badge&logo=terminal)](https://herdr.dev)
 [![GitHub Stars](https://img.shields.io/github/stars/quijotevitruvio/HerdrSpanis?style=for-the-badge&logo=github&color=gold)](https://github.com/quijotevitruvio/HerdrSpanis/stargazers)
 [![Donar con PayPal](https://img.shields.io/badge/Donar-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/bibliotecologo)
+[![X](https://img.shields.io/badge/X-@quijotevitruvio-black?style=for-the-badge&logo=x)](https://x.com/quijotevitruvio)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Andr%C3%A9s_Valencia-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/andr%C3%A9s-valencia-tob%C3%B3n/)
+[![TikTok](https://img.shields.io/badge/TikTok-@quijotevitruvio-black?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@quijotevitruvio)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-blue?style=for-the-badge)](https://github.com/quijotevitruvio/HerdrSpanis)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
@@ -150,13 +153,18 @@ HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos ofic
 
 ---
 
-### 💖 Apoya el Proyecto
+### 💖 Apoya el Proyecto y Redes
 
 Si esta herramienta te ayuda en tu día a día programando con Inteligencia Artificial:
 
 * ⭐ **Danos una estrella en GitHub:** [github.com/quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis) (¡Nos ayuda muchísimo a llegar a más gente!).
 * ☕ **Donaciones por PayPal:** Invítame un café o apoya el mantenimiento de futuras versiones y traducciones:  
   👉 **[https://paypal.me/bibliotecologo](https://paypal.me/bibliotecologo)**
+
+#### 👤 Conecta con el Creador:
+* 🌐 **X (Twitter):** [@quijotevitruvio](https://x.com/quijotevitruvio)
+* 💼 **LinkedIn:** [Andrés Valencia Tobón](https://www.linkedin.com/in/andr%C3%A9s-valencia-tob%C3%B3n/)
+* 🎵 **TikTok:** [@quijotevitruvio](https://www.tiktok.com/@quijotevitruvio)
 
 </details>
 
@@ -208,10 +216,13 @@ curl -fsSL https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/in
 
 ---
 
-### 💖 Support & Donations
+### 💖 Support, Donations & Connect
 
 * ⭐ **Star this repo:** [quijotevitruvio/HerdrSpanis](https://github.com/quijotevitruvio/HerdrSpanis)
 * ☕ **PayPal Donation:** [https://paypal.me/bibliotecologo](https://paypal.me/bibliotecologo)
+* 🌐 **X (Twitter):** [@quijotevitruvio](https://x.com/quijotevitruvio)
+* 💼 **LinkedIn:** [Andrés Valencia Tobón](https://www.linkedin.com/in/andr%C3%A9s-valencia-tob%C3%B3n/)
+* 🎵 **TikTok:** [@quijotevitruvio](https://www.tiktok.com/@quijotevitruvio)
 
 </details>
 
@@ -219,5 +230,15 @@ curl -fsSL https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/in
 
 ---
 <div align="center">
+  <h3>👨‍💻 Creado y mantenido por Andrés Valencia Tobón</h3>
+  <p>
+    <a href="https://x.com/quijotevitruvio"><img src="https://img.shields.io/badge/X-@quijotevitruvio-black?style=for-the-badge&logo=x" alt="X / Twitter" /></a>
+    &nbsp;
+    <a href="https://www.linkedin.com/in/andr%C3%A9s-valencia-tob%C3%B3n/"><img src="https://img.shields.io/badge/LinkedIn-Andr%C3%A9s_Valencia-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn" /></a>
+    &nbsp;
+    <a href="https://www.tiktok.com/@quijotevitruvio"><img src="https://img.shields.io/badge/TikTok-@quijotevitruvio-black?style=for-the-badge&logo=tiktok&logoColor=white" alt="TikTok" /></a>
+    &nbsp;
+    <a href="https://paypal.me/bibliotecologo"><img src="https://img.shields.io/badge/Donar-PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white" alt="PayPal" /></a>
+  </p>
   <b><a href="https://paypal.me/bibliotecologo">☕ Apoyar en PayPal</a> &nbsp;•&nbsp; <a href="https://github.com/quijotevitruvio/HerdrSpanis">⭐ Dar Estrella en GitHub</a></b>
 </div>
