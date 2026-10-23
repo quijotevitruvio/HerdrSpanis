@@ -46,5 +46,8 @@ Write-Host "  Prefijo + [          ➔ Modo copia / desplazamiento (Copy mode)"
 Write-Host "  Prefijo + e          ➔ Editar historial del panel en editor"
 Write-Host "  Prefijo + x          ➔ Cerrar panel actual"
 Write-Host ""
+Write-Host "  ⭐ Apoya el proyecto: https://github.com/quijotevitruvio/HerdrSpanis" -ForegroundColor Yellow
+Write-Host "  ☕ Donar en PayPal:   https://paypal.me/bibliotecologo" -ForegroundColor Cyan
+Write-Host ""
 Write-Host "Presiona cualquier tecla para cerrar este menú..." -ForegroundColor Yellow
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null

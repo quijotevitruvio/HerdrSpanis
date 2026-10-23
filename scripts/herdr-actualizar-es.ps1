@@ -139,3 +139,10 @@ Write-Host " ¡Herdr v$version está 100% actualizado y en Español!" -Foregroun
 Write-Host "========================================================" -ForegroundColor Green
 Write-Host "Comando activo: herdr (apunta a $nombreEspanol)" -ForegroundColor DarkGray
 Write-Host "Para volver al inglés en cualquier momento: herdr-idioma en`n" -ForegroundColor Cyan
+
+Write-Host "────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
+Write-Host "⭐ ¿Te gusta este proyecto? Danos una estrella en GitHub:" -ForegroundColor Yellow
+Write-Host "   https://github.com/quijotevitruvio/HerdrSpanis" -ForegroundColor White
+Write-Host "☕ ¿Quieres apoyar el desarrollo y mantenimiento?" -ForegroundColor Yellow
+Write-Host "   Dona en PayPal: https://paypal.me/bibliotecologo" -ForegroundColor Cyan
+Write-Host "────────────────────────────────────────────────────────────`n" -ForegroundColor DarkGray
