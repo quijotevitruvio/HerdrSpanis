@@ -1,0 +1,21 @@
+id = "herdr-spanis"
+name = "HerdrSpanis"
+version = "0.1.0"
+min_herdr_version = "0.6.0"
+description = "Herdr en Español: Localización de estados y tematización de agentes con iconos visuales (✨ Antigravity, ⚡ Hermes, 🤖 OpenCode, 🧠 Claude)."
+platforms = ["windows", "linux", "macos"]
+
+[[startup]]
+command = ["pwsh", "-File", "herdr-espanol.ps1"]
+
+[[actions]]
+id = "traducir"
+title = "Traducir paneles e iconos a Español"
+description = "Aplica de inmediato las etiquetas en español y los iconos distintivos a todos los agentes activos en Herdr."
+command = ["pwsh", "-File", "herdr-espanol.ps1"]
+
+[[actions]]
+id = "vigilante"
+title = "Iniciar modo vigilante en segundo plano"
+description = "Mantiene los paneles y nuevos agentes localizados al español continuamente."
+command = ["pwsh", "-File", "herdr-espanol.ps1", "-Watch"]
