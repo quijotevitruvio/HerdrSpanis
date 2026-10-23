@@ -46,5 +46,5 @@ Write-Host "  Prefijo + [          ➔ Modo copia / desplazamiento (Copy mode)"
 Write-Host "  Prefijo + e          ➔ Editar historial del panel en editor"
 Write-Host "  Prefijo + x          ➔ Cerrar panel actual"
 Write-Host ""
-Write-Host "  Presiona [Enter] o [q] para cerrar este menú..." -ForegroundColor Yellow
-$null = Read-Host
+Write-Host "Presiona cualquier tecla para cerrar este menú..." -ForegroundColor Yellow
+$Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null
