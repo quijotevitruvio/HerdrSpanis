@@ -1,12 +1,13 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    HerdrSpanis - Localización y tematización de agentes para Herdr.
+    HerdrSpanis - Localización nativa y tematización de agentes para Herdr.
 .DESCRIPTION
     Cumple con la especificación oficial de https://herdr.dev/docs/plugins/:
-    - Usa $env:HERDR_BIN_PATH dinámicamente para máxima portabilidad.
-    - Soporta invocación por [[startup]], [[events]] (HERDR_PLUGIN_EVENT_JSON) y [[actions]].
-    - Aplica etiquetas de estado en español y asigna iconos visuales a cada IA/Agente.
+    - Utiliza $env:HERDR_BIN_PATH dinámicamente para máxima portabilidad.
+    - Soporta invocación por [[startup]], [[events]] y [[actions]].
+    - Aplica etiquetas de estado en español.
+    - Asigna nombres limpios e iconos tipográficos/Nerd Fonts originales para cada IA/Agente.
 #>
 
 [CmdletBinding()]
@@ -17,7 +18,7 @@ param(
 
 $ErrorActionPreference = "SilentlyContinue"
 
-# 1. Resolver el binario de Herdr según https://herdr.dev/docs/plugins/ (HERDR_BIN_PATH primero)
+# 1. Resolver el binario de Herdr según https://herdr.dev/docs/plugins/
 $herdrCmd = if ($env:HERDR_BIN_PATH -and (Test-Path $env:HERDR_BIN_PATH)) {
     $env:HERDR_BIN_PATH
 } elseif (Get-Command "herdr" -ErrorAction SilentlyContinue) {
@@ -40,30 +41,30 @@ $herdrCmd = if ($env:HERDR_BIN_PATH -and (Test-Path $env:HERDR_BIN_PATH)) {
     }
 }
 
-# 2. Catálogo de iconos por agente reconocido en Herdr
+# 2. Catálogo estilizado con iconos canónicos para cada IA/Agente
 $agentIcons = @{
-    "agy"             = "✨ Antigravity"
-    "antigravity-cli" = "✨ Antigravity"
-    "gemini"          = "✨ Gemini"
-    "hermes"          = "⚡ Hermes"
-    "opencode"        = "🤖 OpenCode"
-    "claude"          = "🧠 Claude"
-    "codex"           = "💻 Codex"
-    "copilot"         = "🐙 Copilot"
-    "devin"           = "🎯 Devin"
-    "cursor"          = "⚡ Cursor"
-    "grok"            = "🌌 Grok"
-    "kimi"            = "🌙 Kimi"
-    "qwen"            = "🐉 Qwen"
-    "qwen-code"       = "🐉 Qwen"
-    "qoder"           = "🛠️ Qoder"
-    "qodercli"        = "🛠️ Qoder"
-    "droid"           = "🤖 Droid"
-    "kilo"            = "⚖️ Kilo"
-    "letta"           = "🧬 Letta"
-    "mastracode"      = "🎭 Mastra"
-    "pi"              = "🥧 Pi"
-    "omp"             = "⚡ OhMyPosh"
+    "agy"             = "󰚩 Antigravity"
+    "antigravity-cli" = "󰚩 Antigravity"
+    "gemini"          = "󰊠 Gemini"
+    "hermes"          = "⚚ Hermes"
+    "opencode"        = " OpenCode"
+    "claude"          = "󰭻 Claude"
+    "codex"           = "󰘦 Codex"
+    "copilot"         = " GitHub Copilot"
+    "devin"           = "󰆍 Devin"
+    "cursor"          = "󰨞 Cursor"
+    "grok"            = "󰛡 Grok"
+    "kimi"            = "󰽤 Kimi"
+    "qwen"            = "󰈸 Qwen"
+    "qwen-code"       = "󰈸 Qwen"
+    "qoder"           = "󰘧 Qoder"
+    "qodercli"        = "󰘧 Qoder"
+    "droid"           = "󰄛 Droid"
+    "kilo"            = "󰄯 Kilo"
+    "letta"           = "󰐚 Letta"
+    "mastracode"      = "󰒍 Mastra"
+    "pi"              = "󰄛 Pi"
+    "omp"             = "󰊠 OhMyPosh"
 }
 
 function Update-PaneSpanishMetadata {
@@ -78,9 +79,9 @@ function Update-PaneSpanishMetadata {
     $displayAgent = if ($AgentKey -and $agentIcons.ContainsKey($AgentKey)) {
         $agentIcons[$AgentKey]
     } elseif ($AgentKey) {
-        "🤖 $AgentKey"
+        "$AgentKey"
     } else {
-        "🐚 Terminal"
+        "Terminal"
     }
 
     $needsUpdate = $false
