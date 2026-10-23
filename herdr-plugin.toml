@@ -2,7 +2,11 @@ id = "herdr-spanis"
 name = "HerdrSpanis"
 version = "0.2.1"
 min_herdr_version = "0.6.0"
-description = "Herdr en Español: Localización de estados del ciclo de vida y tematización de agentes AI con iconos visuales (✨ Antigravity, ⚡ Hermes, 🤖 OpenCode, 🧠 Claude)."
+description = "Herdr en Español: Localización completa de interfaz, ciclo de vida y tematización de agentes de IA con glifos canónicos."
+author = "quijotevitruvio"
+repository = "https://github.com/quijotevitruvio/HerdrSpanis"
+homepage = "https://github.com/quijotevitruvio/HerdrSpanis"
+license = "MIT"
 platforms = ["windows", "linux", "macos"]
 
 [[startup]]
@@ -51,6 +55,13 @@ title = "Actualizar Herdr en Español"
 description = "Detecta la versión oficial más reciente y aplica la versión en español de forma transparente."
 contexts = ["global"]
 command = ["pwsh", "-NoProfile", "-File", "scripts/herdr-actualizar-es.ps1"]
+
+[[actions]]
+id = "lanzar-agente"
+title = "Lanzar Agente IA en Español"
+description = "Abre un nuevo panel con tu agente de IA preferido configurado para comunicarse en español."
+contexts = ["global", "workspace", "tab"]
+command = ["pwsh", "-NoProfile", "-File", "scripts/lanzar-agente.ps1"]
 
 [[panes]]
 id = "menu-ayuda"

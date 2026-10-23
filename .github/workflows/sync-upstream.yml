@@ -1,0 +1,60 @@
+name: Compilar y Publicar Release en Español
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'Tag de versión oficial a compilar (ej: v0.9.5)'
+        required: false
+        default: 'v0.9.5'
+  schedule:
+    - cron: '0 4 * * 1' # Cada lunes a las 04:00 UTC
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout HerdrSpanis
+        uses: actions/checkout@v4
+
+      - name: Instalar Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Instalar Zig 0.16.0
+        uses: mlugg/setup-zig@v1
+        with:
+          version: 0.16.0
+
+      - name: Clonar código oficial de Herdr
+        run: |
+          git clone --depth 1 --branch master https://github.com/herdrdev/herdr.git herdr-upstream
+
+      - name: Aplicar Parche en Español
+        run: |
+          cd herdr-upstream
+          git apply --reject --whitespace=fix ..\patches\v0.9.5-espanol.patch || true
+
+      - name: Compilar Binario Release
+        run: |
+          cd herdr-upstream
+          cargo build --release --bin herdr
+          copy target\release\herdr.exe ..\herdr-es.exe
+
+      - name: Publicar Release en GitHub
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+        with:
+          files: herdr-es.exe
+          tag_name: ${{ github.event.inputs.version_tag || 'v0.9.5-espanol' }}
+          name: Herdr en Español ${{ github.event.inputs.version_tag || 'v0.9.5' }}
+          body: |
+            ## Herdr en Español 🇪🇸
+            Compilación automatizada desde el código fuente oficial de Herdr con el parche de traducción completa al español.
+
+            ### Descarga Directa
+            - Descarga **herdr-es.exe** adjunto y disfruta de Herdr 100% en español.
+
+            ⭐ **Danos una estrella:** https://github.com/quijotevitruvio/HerdrSpanis  
+            ☕ **Donar en PayPal:** https://paypal.me/bibliotecologo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
