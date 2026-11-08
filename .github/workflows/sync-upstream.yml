@@ -1,6 +1,9 @@
 name: Compilar y Publicar Releases Multiplataforma (Windows, Linux, macOS)
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       version_tag:
@@ -159,8 +162,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: dist/*
-          tag_name: ${{ github.event.inputs.version_tag || 'v0.9.5-espanol' }}
-          name: Herdr en Español ${{ github.event.inputs.version_tag || 'v0.9.5' }}
+          tag_name: ${{ github.event.inputs.version_tag || github.ref_name || 'v0.9.5-espanol' }}
+          name: Herdr en Español ${{ github.event.inputs.version_tag || github.ref_name || 'v0.9.5' }}
           body: |
             ## 🇪🇸 Herdr en Español — Releases Multiplataforma 🚀
 
