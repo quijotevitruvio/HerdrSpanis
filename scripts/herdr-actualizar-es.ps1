@@ -1,13 +1,19 @@
-<#
+﻿<#
 .SYNOPSIS
     Actualiza Herdr y aplica/sincroniza automáticamente la traducción al Español.
 .DESCRIPTION
-    1. Ejecuta 'herdr update' o verifica la última versión oficial de Herdr instalada.
+    1. Detecta la versión oficial de Herdr instalada en el sistema.
     2. Asegura que el binario oficial quede respaldado como 'herdr-original.exe'.
-    3. Descarga o compila automáticamente la versión en español correspondiente.
+    3. Descarga o compila automáticamente la versión en español correspondiente (sin rutas fijas).
     4. Copia las dependencias de ConPTY y actualiza el enlace 'current' sin romper la instalación oficial.
+.PARAMETER ForceRebuild
+    Fuerza la compilación local desde código fuente en lugar de descargar el binario precompilado.
+.PARAMETER CheckOnly
+    Solo verifica el estado de las versiones sin aplicar cambios.
 .EXAMPLE
     herdr-actualizar-es
+    herdr-actualizar-es -CheckOnly
+    herdr-actualizar-es -ForceRebuild
 #>
 
 [CmdletBinding()]
@@ -17,15 +23,18 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$standaloneDir = "$env:USERPROFILE\.herdr\packages\standalone"
-$releasesDir = "$standaloneDir\releases"
-$currentLink = "$standaloneDir\current"
-$srcDir = "F:\666999\0.Programador\herdr-src"
-$zigExe = "$env:USERPROFILE\.zig-0.16.0\zig.exe"
+$standaloneDir = Join-Path $env:USERPROFILE ".herdr\packages\standalone"
+$releasesDir = Join-Path $standaloneDir "releases"
+$currentLink = Join-Path $standaloneDir "current"
 
 Write-Host "`n=== ACTUALIZADOR DE HERDR EN ESPAÑOL ===" -ForegroundColor Cyan
 
 # 1. Detectar versión oficial instalada
+if (-not (Test-Path $releasesDir)) {
+    Write-Error "No se encontró el directorio de instalaciones de Herdr en '$releasesDir'. Asegúrate de tener Herdr instalado."
+    return
+}
+
 $dirOficial = Get-ChildItem -Directory $releasesDir | Where-Object { $_.Name -notmatch '-espanol' } | Sort-Object Name -Descending | Select-Object -First 1
 
 if (-not $dirOficial) {
@@ -34,7 +43,7 @@ if (-not $dirOficial) {
 }
 
 $nombreOficial = $dirOficial.Name # Ej: 0.9.5-x86_64-pc-windows-msvc
-$versionMatch = [regex]::Match($nombreOficial, '^([0-9]+\.[0-9]+\.[0-9]+)')
+$versionMatch = [regex]::Match($nombreOficial, '^([0-9]+\.[0-9]+(\.[0-9]+)?)')
 if (-not $versionMatch.Success) {
     Write-Error "No se pudo determinar el número de versión desde '$nombreOficial'."
     return
@@ -56,7 +65,7 @@ if ((Test-Path $binOficial) -and (-not (Test-Path $binBackup))) {
 }
 
 if ($CheckOnly) {
-    Write-Host "Comprobación finalizada." -ForegroundColor Cyan
+    Write-Host "Comprobación finalizada. Estado actual: listo para actualizar." -ForegroundColor Cyan
     return
 }
 
@@ -76,40 +85,82 @@ if (Test-Path (Join-Path $dirOficial.FullName "THIRD-PARTY-NOTICES")) {
 $binEspanolDestino = Join-Path $dirEspanol "herdr.exe"
 $descargadoConExito = $false
 
-# 4. Intentar descarga rápida desde Releases de GitHub si no se pide ForceRebuild
+# 4. Descarga rápida desde Releases de GitHub si no se fuerza rebuild
 if (-not $ForceRebuild) {
-    $urlRelease = "https://github.com/quijotevitruvio/HerdrSpanis/releases/download/v$version-espanol/herdr-es.exe"
-    Write-Host "Buscando binario en español precompilado en GitHub ($urlRelease)..." -ForegroundColor Gray
-    try {
-        $tempFile = Join-Path $env:TEMP "herdr-es-$version.exe"
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13
-        Invoke-WebRequest -Uri $urlRelease -OutFile $tempFile -UseBasicParsing -TimeoutSec 30
-        if ((Test-Path $tempFile) -and ((Get-Item $tempFile).Length -gt 10000000)) {
-            Copy-Item $tempFile $binEspanolDestino -Force
+    $urlsAProbar = @(
+        "https://github.com/quijotevitruvio/HerdrSpanis/releases/download/v$version-espanol/herdr-es.exe",
+        "https://github.com/quijotevitruvio/HerdrSpanis/releases/latest/download/herdr-es.exe"
+    )
+
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 -bor [Net.SecurityProtocolType]::Tls13
+    $tempFile = Join-Path $env:TEMP "herdr-es-$version-$([System.Guid]::NewGuid().ToString('N').Substring(0,8)).exe"
+
+    foreach ($urlRelease in $urlsAProbar) {
+        Write-Host "Buscando binario en español en GitHub ($urlRelease)..." -ForegroundColor Gray
+        try {
+            Invoke-WebRequest -Uri $urlRelease -OutFile $tempFile -UseBasicParsing -TimeoutSec 45
+            if ((Test-Path $tempFile) -and ((Get-Item $tempFile).Length -gt 10000000)) {
+                Copy-Item $tempFile $binEspanolDestino -Force
+                Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+                $descargadoConExito = $true
+                Write-Host "[OK] Binario en español descargado e instalado correctamente." -ForegroundColor Green
+                break
+            }
+        } catch {
             Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
-            $descargadoConExito = $true
-            Write-Host "[OK] Binario en español descargado e instalado correctamente." -ForegroundColor Green
         }
-    } catch {
-        Write-Host "No se encontró release remoto para v$version-espanol. Procediendo con compilación local..." -ForegroundColor Yellow
+    }
+
+    if (-not $descargadoConExito) {
+        Write-Host "No se encontró release binario precompilado en GitHub. Procediendo con búsqueda/compilación local..." -ForegroundColor Yellow
     }
 }
 
-# 5. Compilación local si no se pudo descargar
+# 5. Compilación local dinámica si no se pudo descargar o se especificó -ForceRebuild
 if (-not $descargadoConExito) {
-    if (-not (Test-Path $srcDir)) {
-        Write-Error "No se encontró el directorio de código fuente en '$srcDir'."
-        return
+    # 5.1 Resolver dinámicamente directorio de código fuente
+    $srcDir = if ($env:HERDR_SRC_DIR -and (Test-Path $env:HERDR_SRC_DIR)) {
+        $env:HERDR_SRC_DIR
+    } elseif (Test-Path (Join-Path $PSScriptRoot "..\..\herdr-src")) {
+        (Resolve-Path (Join-Path $PSScriptRoot "..\..\herdr-src")).Path
+    } elseif (Test-Path (Join-Path $env:TEMP "herdr-src")) {
+        Join-Path $env:TEMP "herdr-src"
+    } else {
+        $tempSrc = Join-Path $env:TEMP "herdr-src"
+        Write-Host "Directorio fuente no encontrado. Clonando repositorio oficial de Herdr en $tempSrc..." -ForegroundColor Cyan
+        git clone --depth 1 https://github.com/herdr-dev/herdr.git $tempSrc
+        $tempSrc
     }
-    if (-not (Test-Path $zigExe)) {
-        Write-Error "No se encontró el compilador Zig 0.16.0 en '$zigExe'."
+
+    # 5.2 Resolver dinámicamente el compilador Zig
+    $zigExe = if (Get-Command "zig" -ErrorAction SilentlyContinue) {
+        (Get-Command "zig").Source
+    } else {
+        $foundZig = $null
+        $zigCandidates = @()
+        $zigCandidates += Get-ChildItem -Path $env:USERPROFILE -Directory -Filter ".zig-*" -ErrorAction SilentlyContinue | ForEach-Object { Join-Path $_.FullName "zig.exe" }
+        $zigCandidates += "$env:USERPROFILE\scoop\apps\zig\current\zig.exe"
+        $zigCandidates += "C:\tools\zig\zig.exe"
+        $zigCandidates += "C:\zig\zig.exe"
+
+        foreach ($cand in $zigCandidates) {
+            if (Test-Path $cand) {
+                $foundZig = $cand
+                break
+            }
+        }
+        $foundZig
+    }
+
+    if (-not $zigExe -or (-not (Test-Path $zigExe))) {
+        Write-Error "No se encontró el compilador Zig en el sistema ni en PATH. Instala Zig o agrega su ruta a PATH."
         return
     }
 
-    Write-Host "Compilando localmente con Zig 0.16.0 y Cargo (esto toma aprox. 1-2 min)..." -ForegroundColor Cyan
-    $env:PATH = "C:\Users\Rocka\.zig-0.16.0;$env:PATH"
+    $zigDir = Split-Path $zigExe -Parent
+    $env:PATH = "$zigDir;$env:PATH"
 
-    # Recompilar en modo release
+    Write-Host "Compilando localmente con Zig ($zigExe) y Cargo..." -ForegroundColor Cyan
     $buildCmd = "cargo build --release --bin herdr"
     $process = Start-Process -FilePath "cmd.exe" -ArgumentList "/c cd /d `"$srcDir`" && $buildCmd" -NoNewWindow -Wait -PassThru
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 <#
 .SYNOPSIS
     Menú y Guía de Atajos en Español para Herdr (Popup Pane de HerdrSpanis).
@@ -49,5 +49,11 @@ Write-Host ""
 Write-Host "  ⭐ Apoya el proyecto: https://github.com/quijotevitruvio/HerdrSpanis" -ForegroundColor Yellow
 Write-Host "  ☕ Donar en PayPal:   https://paypal.me/bibliotecologo" -ForegroundColor Cyan
 Write-Host ""
+
+# Notificación no intrusiva de actualización si existe
+$checkScript = Join-Path $PSScriptRoot "scripts\check-actualizacion.ps1"
+if (Test-Path $checkScript) {
+    & $checkScript
+}
 Write-Host "Presiona cualquier tecla para cerrar este menú..." -ForegroundColor Yellow
 $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null

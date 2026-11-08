@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Cambia instantáneamente el idioma de Herdr entre Español (Nativo) e Inglés (Oficial Upstream).
 .DESCRIPTION
@@ -54,6 +54,9 @@ if (-not $Idioma -or $Idioma -in @('estado', 'status')) {
     Write-Host "  herdr-idioma es   -> Cambiar a Español (100% traducido)" -ForegroundColor White
     Write-Host "  herdr-idioma en   -> Cambiar a Inglés (Oficial de fábrica)" -ForegroundColor White
     Write-Host "`n⭐ GitHub: https://github.com/quijotevitruvio/HerdrSpanis | ☕ PayPal: https://paypal.me/bibliotecologo`n" -ForegroundColor DarkGray
+    
+    # Comprobar actualizaciones en segundo plano o con caché local
+    & "$PSScriptRoot\check-actualizacion.ps1"
     return
 }
 

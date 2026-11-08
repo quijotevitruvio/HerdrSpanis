@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 <#
 .SYNOPSIS
     HerdrSpanis - Localización nativa y tematización de agentes para Herdr.
@@ -7,7 +7,7 @@
     - Utiliza $env:HERDR_BIN_PATH dinámicamente para máxima portabilidad.
     - Soporta invocación por [[startup]], [[events]] y [[actions]].
     - Aplica etiquetas de estado en español.
-    - Asigna nombres limpios e iconos tipográficos/Nerd Fonts originales para cada IA/Agente.
+    - Asigna nombres limpios e iconos tipográficos/Nerd Fonts originales para el catálogo de las 24 IAs.
 #>
 
 [CmdletBinding()]
@@ -41,30 +41,68 @@ $herdrCmd = if ($env:HERDR_BIN_PATH -and (Test-Path $env:HERDR_BIN_PATH)) {
     }
 }
 
-# 2. Catálogo estilizado con iconos canónicos para cada IA/Agente
+# 2. Catálogo estilizado con iconos canónicos para las 24 IAs y Agentes
 $agentIcons = @{
+    # 1. Antigravity
     "agy"             = "󰚩 Antigravity"
+    "antigravity"     = "󰚩 Antigravity"
     "antigravity-cli" = "󰚩 Antigravity"
-    "gemini"          = "󰊠 Gemini"
-    "hermes"          = "⚚ Hermes"
-    "opencode"        = " OpenCode"
+    # 2. Claude
     "claude"          = "󰭻 Claude"
+    # 3. Hermes
+    "hermes"          = "⚚ Hermes"
+    # 4. OpenCode
+    "opencode"        = " OpenCode"
+    # 5. Codex
     "codex"           = "󰘦 Codex"
-    "copilot"         = " GitHub Copilot"
-    "devin"           = "󰆍 Devin"
+    # 6. Gemini
+    "gemini"          = "󰊠 Gemini"
+    # 7. Cursor
     "cursor"          = "󰨞 Cursor"
+    # 8. Devin
+    "devin"           = "󰆍 Devin"
+    # 9. Grok
     "grok"            = "󰛡 Grok"
+    # 10. Kimi
     "kimi"            = "󰽤 Kimi"
+    # 11. Qwen
     "qwen"            = "󰈸 Qwen"
     "qwen-code"       = "󰈸 Qwen"
+    # 12. Cline
+    "cline"           = "󰞋 Cline"
+    # 13. Kiro
+    "kiro"            = "󰘧 Kiro"
+    # 14. Droid
+    "droid"           = "󰄛 Droid"
+    # 15. Amp
+    "amp"             = "󰘦 Amp"
+    # 16. Kilo
+    "kilo"            = "󰄯 Kilo"
+    # 17. Qoder / QoderCLI
     "qoder"           = "󰘧 Qoder"
     "qodercli"        = "󰘧 Qoder"
-    "droid"           = "󰄛 Droid"
-    "kilo"            = "󰄯 Kilo"
+    # 18. Letta
     "letta"           = "󰐚 Letta"
-    "mastracode"      = "󰒍 Mastra"
-    "pi"              = "󰄛 Pi"
+    # 19. Maki
+    "maki"            = "󰒍 Maki"
+    # 20. Muse
+    "muse"            = "󰝚 Muse"
+    # 21. OhMyPosh
     "omp"             = "󰊠 OhMyPosh"
+    # 22. Mastra / Mastracode
+    "mastra"          = "󰒍 Mastra"
+    "mastracode"      = "󰒍 Mastra"
+    # 23. Pi
+    "pi"              = "󰄛 Pi"
+    # 24. Terminal / Shell
+    "terminal"        = " Terminal"
+    "pwsh"            = " Terminal"
+    "powershell"      = " Terminal"
+    "cmd"             = " Terminal"
+    "bash"            = " Terminal"
+    "zsh"             = " Terminal"
+    # Agente adicional
+    "copilot"         = " Copilot"
 }
 
 function Update-PaneSpanishMetadata {
@@ -76,12 +114,12 @@ function Update-PaneSpanishMetadata {
         $CurrentLabels
     )
 
-    $displayAgent = if ($AgentKey -and $agentIcons.ContainsKey($AgentKey)) {
-        $agentIcons[$AgentKey]
+    $displayAgent = if ($AgentKey -and $agentIcons.ContainsKey($AgentKey.ToLower())) {
+        $agentIcons[$AgentKey.ToLower()]
     } elseif ($AgentKey) {
         "$AgentKey"
     } else {
-        "Terminal"
+        " Terminal"
     }
 
     $needsUpdate = $false
@@ -125,6 +163,14 @@ function Apply-HerdrSpanis {
         # Silencioso para evitar interrumpir flujos de terminal o hooks
     }
 }
+
+# 3. Comprobar actualizaciones de fondo de forma no intrusiva
+try {
+    $checkScript = Join-Path $PSScriptRoot "scripts\check-actualizacion.ps1"
+    if (Test-Path $checkScript) {
+        & $checkScript
+    }
+} catch {}
 
 Apply-HerdrSpanis
 

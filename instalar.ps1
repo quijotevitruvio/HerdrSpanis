@@ -1,4 +1,4 @@
-# ==============================================================================
+﻿# ==============================================================================
 # HerdrSpanis - Instalador Automático de Herdr en Español (Para Dummies)
 # ==============================================================================
 
@@ -36,7 +36,7 @@ if (-not $dirOficial) {
     return
 }
 
-$versionMatch = [regex]::Match($dirOficial.Name, '^([0-9]+\.[0-9]+\.[0-9]+)')
+$versionMatch = [regex]::Match($dirOficial.Name, '^([0-9]+\.[0-9]+(\.[0-9]+)?)')
 $version = if ($versionMatch.Success) { $versionMatch.Groups[1].Value } else { "0.9.5" }
 
 Write-Host "[OK] Herdr oficial detectado: versión $version" -ForegroundColor Green
@@ -69,20 +69,33 @@ if (Test-Path (Join-Path $dirOficial.FullName "THIRD-PARTY-NOTICES")) {
     Copy-Item (Join-Path $dirOficial.FullName "THIRD-PARTY-NOTICES") (Join-Path $dirEspanol "THIRD-PARTY-NOTICES") -Recurse -Force
 }
 
-$urlRelease = "https://github.com/quijotevitruvio/HerdrSpanis/releases/download/v$version-espanol/herdr-es.exe"
 $binEspanolDestino = Join-Path $dirEspanol "herdr.exe"
-
 $tempFile = Join-Path $env:TEMP "herdr-es-installer.exe"
 Write-Host "    Descargando binario traducido..." -ForegroundColor Gray
-Invoke-WebRequest -Uri $urlRelease -OutFile $tempFile -UseBasicParsing -TimeoutSec 60
 
-if ((Test-Path $tempFile) -and ((Get-Item $tempFile).Length -gt 10000000)) {
-    Copy-Item $tempFile $binEspanolDestino -Force
-    Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
-    Write-Host "[OK] Binario en español instalado con éxito." -ForegroundColor Green
-} else {
-    Write-Error "No se pudo descargar el binario en español desde GitHub."
-    return
+$urlsDescarga = @(
+    "https://github.com/quijotevitruvio/HerdrSpanis/releases/download/v$version-espanol/herdr-es.exe",
+    "https://github.com/quijotevitruvio/HerdrSpanis/releases/latest/download/herdr-es.exe"
+)
+
+$descargaExitosa = $false
+foreach ($url in $urlsDescarga) {
+    try {
+        Invoke-WebRequest -Uri $url -OutFile $tempFile -UseBasicParsing -TimeoutSec 60
+        if ((Test-Path $tempFile) -and ((Get-Item $tempFile).Length -gt 10000000)) {
+            Copy-Item $tempFile $binEspanolDestino -Force
+            Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+            $descargaExitosa = $true
+            Write-Host "[OK] Binario en español instalado con éxito." -ForegroundColor Green
+            break
+        }
+    } catch {
+        Remove-Item $tempFile -Force -ErrorAction SilentlyContinue
+    }
+}
+
+if (-not $descargaExitosa) {
+    Write-Warning "No se pudo descargar el binario precompilado de GitHub. Podrás compilarlo o usar el plugin directamente."
 }
 
 # Crear scripts auxiliares
@@ -90,16 +103,25 @@ if (-not (Test-Path $scriptsDir)) {
     New-Item -ItemType Directory -Path $scriptsDir -Force | Out-Null
 }
 
-# Descargar scripts de gestión
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/scripts/herdr-idioma.ps1" -OutFile "$scriptsDir\herdr-idioma.ps1" -UseBasicParsing
-Invoke-WebRequest -Uri "https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/scripts/herdr-actualizar-es.ps1" -OutFile "$scriptsDir\herdr-actualizar-es.ps1" -UseBasicParsing
+# Descargar scripts de gestión y automatización
+$baseUrl = "https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/scripts"
+$scripts = @("herdr-idioma.ps1", "herdr-actualizar-es.ps1", "lanzar-agente.ps1", "check-actualizacion.ps1")
 
-# Instalar comandos globales en cargo bin o local bin
+foreach ($s in $scripts) {
+    try {
+        Invoke-WebRequest -Uri "$baseUrl/$s" -OutFile "$scriptsDir\$s" -UseBasicParsing -ErrorAction SilentlyContinue
+    } catch {}
+}
+
+# Instalar comandos globales en cargo bin o herdr bin
 $binFolder = if (Test-Path "$env:USERPROFILE\.cargo\bin") { "$env:USERPROFILE\.cargo\bin" } else { "$env:USERPROFILE\.herdr\bin" }
 if (-not (Test-Path $binFolder)) { New-Item -ItemType Directory -Path $binFolder -Force | Out-Null }
 
 Set-Content -Path "$binFolder\herdr-idioma.cmd" -Value "@echo off`r`npwsh.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\herdr-idioma.ps1`" %*`r`nif %ERRORLEVEL% NEQ 0 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\herdr-idioma.ps1`" %*"
 Set-Content -Path "$binFolder\herdr-actualizar-es.cmd" -Value "@echo off`r`npwsh.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\herdr-actualizar-es.ps1`" %*`r`nif %ERRORLEVEL% NEQ 0 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\herdr-actualizar-es.ps1`" %*"
+Set-Content -Path "$binFolder\herdr-agente.cmd" -Value "@echo off`r`npwsh.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\lanzar-agente.ps1`" %*`r`nif %ERRORLEVEL% NEQ 0 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\lanzar-agente.ps1`" %*"
+Set-Content -Path "$binFolder\herdr-escuadron.cmd" -Value "@echo off`r`npwsh.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\lanzar-agente.ps1`" -Escuadron %*`r`nif %ERRORLEVEL% NEQ 0 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\lanzar-agente.ps1`" -Escuadron %*"
+Set-Content -Path "$binFolder\herdr-check-actualizacion.cmd" -Value "@echo off`r`npwsh.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\check-actualizacion.ps1`" %*`r`nif %ERRORLEVEL% NEQ 0 powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"%USERPROFILE%\.herdr\scripts\check-actualizacion.ps1`" %*"
 
 # 4. Configurar enlace activo y PATH
 Write-Host "`n[4/4] Configurando enlace 'current' y variables de entorno..." -ForegroundColor Yellow
@@ -110,16 +132,25 @@ if (Test-Path $currentLink) {
 New-Item -ItemType Junction -Path $currentLink -Target $dirEspanol | Out-Null
 
 $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
-if ($userPath -notmatch [regex]::Escape($currentLink)) {
-    $nuevoPath = "$currentLink;" + $userPath
-    [Environment]::SetEnvironmentVariable('Path', $nuevoPath, 'User')
-    Write-Host "[OK] Variable PATH de usuario actualizada para usar 'current'." -ForegroundColor Green
+$rutasAAgregar = @($currentLink, $binFolder)
+
+foreach ($r in $rutasAAgregar) {
+    if ($userPath -notmatch [regex]::Escape($r)) {
+        $userPath = "$r;$userPath"
+    }
 }
+[Environment]::SetEnvironmentVariable('Path', $userPath, 'User')
+Write-Host "[OK] Variable PATH de usuario configurada para comandos rápidos." -ForegroundColor Green
 
 # 5. Activar plugin oficial de estados e iconos
 try {
     Write-Host "    Activando plugin oficial para iconos y estados de agentes..." -ForegroundColor Gray
     & "$dirEspanol\herdr.exe" plugin install quijotevitruvio/HerdrSpanis 2>$null
+} catch {}
+
+# Comprobar actualizaciones y preparar caché inicial
+try {
+    & "$scriptsDir\check-actualizacion.ps1" -Silent
 } catch {}
 
 # ==============================================================================
@@ -132,10 +163,13 @@ Write-Host @"
   ╚════════════════════════════════════════════════════════════════════════════╝
 
   Comandos rápidos disponibles en cualquier terminal:
-    herdr                -> Inicia Herdr 100% en Español
-    herdr-idioma es      -> Activar versión en Español
-    herdr-idioma en      -> Volver al Inglés oficial original
-    herdr-actualizar-es  -> Sincronizar automáticamente con nuevas versiones
+    herdr                      -> Inicia Herdr 100% en Español
+    herdr-escuadron            -> Lanza Escuadrón (Antigravity + Hermes Auditor)
+    herdr-agente [nombre]      -> Lanza cualquiera de las 24 IAs en Español
+    herdr-idioma es            -> Activar versión en Español
+    herdr-idioma en            -> Volver al Inglés oficial original
+    herdr-actualizar-es        -> Sincronizar automáticamente con nuevas versiones
+    herdr-check-actualizacion  -> Comprobar si hay actualizaciones disponibles
 
   ────────────────────────────────────────────────────────────────────────────
   ⭐  ¿TE HA SERVIDO ESTE PROYECTO?

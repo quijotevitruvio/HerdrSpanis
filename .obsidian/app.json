@@ -1,0 +1,7 @@
+{
+  "useMarkdownLinks": false,
+  "attachmentFolderPath": "assets",
+  "newFileFolderPath": "docs/architecture",
+  "alwaysUpdateLinks": true,
+  "livePreview": true
+}

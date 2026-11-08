@@ -1,13 +1,16 @@
 id = "herdr-spanis"
 name = "HerdrSpanis"
-version = "0.2.1"
+version = "0.3.0"
 min_herdr_version = "0.6.0"
-description = "Herdr en Español: Localización completa de interfaz, ciclo de vida y tematización de agentes de IA con glifos canónicos."
+description = "Herdr en Español: Localización completa de interfaz, orquestación multi-agente con Hermes Auditor y tematización canónica de 24 IAs."
 author = "quijotevitruvio"
 repository = "https://github.com/quijotevitruvio/HerdrSpanis"
 homepage = "https://github.com/quijotevitruvio/HerdrSpanis"
 license = "MIT"
 platforms = ["windows", "linux", "macos"]
+
+[[startup]]
+command = ["pwsh", "-NoProfile", "-File", "scripts/check-actualizacion.ps1"]
 
 [[startup]]
 command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
@@ -36,6 +39,13 @@ contexts = ["global", "workspace", "tab", "pane"]
 command = ["pwsh", "-NoProfile", "-File", "herdr-espanol.ps1"]
 
 [[actions]]
+id = "lanzar-escuadron"
+title = "Lanzar Escuadrón Multi-Agente (Antigravity + Hermes Auditor)"
+description = "Despliega un panel dual con Antigravity para codificación y Hermes Agent como copiloto auditor en tiempo real."
+contexts = ["global", "workspace", "tab"]
+command = ["pwsh", "-NoProfile", "-File", "scripts/lanzar-agente.ps1", "-Escuadron"]
+
+[[actions]]
 id = "ayuda"
 title = "Menú y Atajos en Español"
 description = "Abre la guía interactiva y menú de comandos de Herdr completamente traducido al español."
@@ -55,6 +65,13 @@ title = "Actualizar Herdr en Español"
 description = "Detecta la versión oficial más reciente y aplica la versión en español de forma transparente."
 contexts = ["global"]
 command = ["pwsh", "-NoProfile", "-File", "scripts/herdr-actualizar-es.ps1"]
+
+[[actions]]
+id = "verificar-actualizaciones"
+title = "Verificar Actualizaciones de Herdr en Español"
+description = "Consulta la API de GitHub para verificar si existe una nueva versión de HerdrSpanis o el binario traducido."
+contexts = ["global"]
+command = ["pwsh", "-NoProfile", "-File", "scripts/check-actualizacion.ps1", "-CheckOnly"]
 
 [[actions]]
 id = "lanzar-agente"

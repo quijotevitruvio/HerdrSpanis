@@ -28,6 +28,9 @@ echo -e "${YELLOW}[1/4] Verificando instalación de Herdr en Unix...${NC}"
 HERDR_DIR="$HOME/.herdr"
 RELEASES_DIR="$HERDR_DIR/packages/standalone/releases"
 CURRENT_LINK="$HERDR_DIR/packages/standalone/current"
+SCRIPTS_DIR="$HERDR_DIR/scripts"
+BIN_DIR="$HOME/.local/bin"
+[ -d "$HOME/.cargo/bin" ] && BIN_DIR="$HOME/.cargo/bin"
 
 if [ ! -d "$RELEASES_DIR" ]; then
     echo -e "${YELLOW}[!] No se detectó Herdr instalado. Descargando Herdr oficial...${NC}"
@@ -58,7 +61,6 @@ fi
 # 3. Descargar binario en español según sistema
 echo -e "${YELLOW}[3/4] Descargando versión nativa en español...${NC}"
 OS="$(uname -s)"
-ARCH="$(uname -m)"
 DIR_ESPANOL="$RELEASES_DIR/$NOMBRE_OFICIAL-espanol"
 mkdir -p "$DIR_ESPANOL"
 
@@ -73,22 +75,44 @@ fi
 
 if [ -n "$ASSET_NAME" ]; then
     URL="https://github.com/quijotevitruvio/HerdrSpanis/releases/download/$TAG_RELEASE/$ASSET_NAME"
+    URL_LATEST="https://github.com/quijotevitruvio/HerdrSpanis/releases/latest/download/$ASSET_NAME"
     echo -e "${CYAN}    Descargando $ASSET_NAME desde GitHub Releases...${NC}"
     TMP_DIR=$(mktemp -d)
-    if curl -fsSL "$URL" -o "$TMP_DIR/$ASSET_NAME"; then
+    if curl -fsSL "$URL" -o "$TMP_DIR/$ASSET_NAME" 2>/dev/null || curl -fsSL "$URL_LATEST" -o "$TMP_DIR/$ASSET_NAME" 2>/dev/null; then
         tar -xzf "$TMP_DIR/$ASSET_NAME" -C "$TMP_DIR"
         find "$TMP_DIR" -type f -name "herdr*" ! -name "*.tar.gz" -exec cp {} "$DIR_ESPANOL/herdr" \;
         chmod +x "$DIR_ESPANOL/herdr"
         echo -e "${GREEN}[OK] Binario en español instalado correctamente.${NC}"
-        # Actualizar enlace current
         ln -sfn "$DIR_ESPANOL" "$CURRENT_LINK"
     else
-        echo -e "${YELLOW}[!] El release compilado aún se está generando en GitHub. Se usará el plugin oficial por ahora.${NC}"
+        echo -e "${YELLOW}[!] Release no encontrado o aún en generación. Usando plugin de tematización.${NC}"
     fi
     rm -rf "$TMP_DIR"
 fi
 
-# 4. Instalar plugin oficial de tematización y agentes
+# 4. Instalar scripts de gestión y automatización
+mkdir -p "$SCRIPTS_DIR"
+mkdir -p "$BIN_DIR"
+BASE_URL="https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/scripts"
+
+for scr in herdr-idioma.sh herdr-actualizar-es.sh check-actualizacion.sh lanzar-agente.sh; do
+    curl -fsSL "$BASE_URL/$scr" -o "$SCRIPTS_DIR/$scr" 2>/dev/null || true
+    chmod +x "$SCRIPTS_DIR/$scr" 2>/dev/null || true
+done
+
+# Crear wrappers globales ejecutables en PATH
+ln -sfn "$SCRIPTS_DIR/herdr-idioma.sh" "$BIN_DIR/herdr-idioma"
+ln -sfn "$SCRIPTS_DIR/herdr-actualizar-es.sh" "$BIN_DIR/herdr-actualizar-es"
+ln -sfn "$SCRIPTS_DIR/lanzar-agente.sh" "$BIN_DIR/herdr-agente"
+ln -sfn "$SCRIPTS_DIR/check-actualizacion.sh" "$BIN_DIR/herdr-check-actualizacion"
+
+cat << 'EOF' > "$BIN_DIR/herdr-escuadron"
+#!/usr/bin/env bash
+exec "$HOME/.herdr/scripts/lanzar-agente.sh" -Escuadron "$@"
+EOF
+chmod +x "$BIN_DIR/herdr-escuadron"
+
+# 5. Instalar plugin oficial de tematización y agentes
 echo -e "${YELLOW}[4/4] Activando plugin de agentes e interfaz en español...${NC}"
 herdr plugin install quijotevitruvio/HerdrSpanis || true
 
@@ -98,9 +122,14 @@ cat << "EOF"
   ║                 🎉  ¡HERDR EN ESPAÑOL ESTÁ LISTO PARA USAR!               ║
   ╚════════════════════════════════════════════════════════════════════════════╝
 
-  Comandos rápidos:
-    herdr                -> Inicia Herdr 100% en Español
-    herdr plugin list    -> Verifica el plugin activo
+  Comandos rápidos disponibles:
+    herdr                      -> Inicia Herdr 100% en Español
+    herdr-escuadron            -> Lanza Escuadrón (Antigravity + Hermes Auditor)
+    herdr-agente [nombre]      -> Lanza cualquiera de las 24 IAs en Español
+    herdr-idioma es            -> Activa versión en Español
+    herdr-idioma en            -> Vuelve al Inglés oficial original
+    herdr-actualizar-es        -> Sincroniza y actualiza con nuevas versiones
+    herdr-check-actualizacion  -> Comprueba si hay actualizaciones disponibles
 
   ────────────────────────────────────────────────────────────────────────────
   ⭐  ¿TE HA SERVIDO ESTE PROYECTO?

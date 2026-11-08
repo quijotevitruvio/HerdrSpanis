@@ -114,30 +114,47 @@ Una vez instalado, usa estos comandos directamente en cualquier terminal:
 | Comando | ¿Qué hace? | ¿Cuándo usarlo? |
 | :--- | :--- | :--- |
 | `herdr` | Inicia Herdr completamente en español. | Para tu trabajo diario con agentes IA. |
+| `herdr-escuadron` | Lanza **Escuadrón Multi-Agente** (Antigravity + Hermes Auditor). | Para trabajar en paralelo con auditoría y background jobs. |
+| `herdr-agente [ia]` | Abre un panel con cualquiera de las **24 IAs** en español. | Para invocar asistentes específicos (`claude`, `gemini`, `cursor`, etc.). |
 | `herdr-idioma es` | Activa el modo **100% en Español**. | Cuando quieras ver la interfaz traducida. |
 | `herdr-idioma en` | Vuelve al **Inglés oficial de fábrica**. | Cuando quieras usar temporalmente el binario original intacto. |
 | `herdr-idioma` | Consulta qué idioma está activo. | Para verificar el estado de tu instalación. |
 | `herdr-actualizar-es` | Actualiza y sincroniza con nuevas versiones. | Cuando el equipo oficial de Herdr lance una actualización. |
+| `herdr-check-actualizacion`| Comprueba actualizaciones en GitHub Releases. | Para verificar manualmente si hay una nueva versión. |
 
 ---
 
-### ✨ Iconos Canónicos de Agentes IA
+### ✨ Iconos Canónicos para las 24 IAs y Agentes
 
-HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos oficiales:
+HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos oficiales y glifos Nerd Fonts:
 
 | Agente / CLI | Icono | Estado traducido |
 | :--- | :---: | :--- |
-| **Google Antigravity** | `󰚩 Antigravity` | `idle` ➔ **Listo** |
-| **Nous Hermes** | `⚚ Hermes` | `working` ➔ **Trabajando...** |
-| **OpenCode** | ` OpenCode` | `blocked` ➔ **Esperando tu respuesta** |
-| **Anthropic Claude Code**| `󰭻 Claude` | `done` ➔ **Completado** |
-| **Codex** | `󰘦 Codex` | `unknown` ➔ **Desconocido** |
-| **GitHub Copilot** | ` GitHub Copilot` | |
-| **Devin** | `󰆍 Devin` | |
-| **Cursor** | `󰨞 Cursor` | |
-| **xAI Grok** | `󰛡 Grok` | |
-| **Moonshot Kimi** | `󰽤 Kimi` | |
-| **Alibaba Qwen** | `󰈸 Qwen` | |
+| **Google Antigravity** (`agy`) | `󰚩 Antigravity` | `idle` ➔ **Listo** |
+| **Nous Hermes** (`hermes`) | `⚚ Hermes` | `working` ➔ **Trabajando...** |
+| **OpenCode** (`opencode`) | ` OpenCode` | `blocked` ➔ **Esperando tu respuesta** |
+| **Anthropic Claude Code** (`claude`) | `󰭻 Claude` | `done` ➔ **Completado** |
+| **Codex** (`codex`) | `󰘦 Codex` | `unknown` ➔ **Desconocido** |
+| **Google Gemini** (`gemini`) | `󰊠 Gemini` | |
+| **Cursor CLI** (`cursor`) | `󰨞 Cursor` | |
+| **Cognition Devin** (`devin`) | `󰆍 Devin` | |
+| **xAI Grok** (`grok`) | `󰛡 Grok` | |
+| **Moonshot Kimi** (`kimi`) | `󰽤 Kimi` | |
+| **Alibaba Qwen** (`qwen`) | `󰈸 Qwen` | |
+| **Cline** (`cline`) | `󰞋 Cline` | |
+| **Kiro** (`kiro`) | `󰘧 Kiro` | |
+| **Droid** (`droid`) | `󰄛 Droid` | |
+| **Amp** (`amp`) | `󰘦 Amp` | |
+| **Kilo** (`kilo`) | `󰄯 Kilo` | |
+| **Qoder** (`qodercli`) | `󰘧 Qoder` | |
+| **Letta** (`letta`) | `󰐚 Letta` | |
+| **Maki** (`maki`) | `󰒍 Maki` | |
+| **Muse** (`muse`) | `󰝚 Muse` | |
+| **OhMyPosh** (`omp`) | `󰊠 OhMyPosh` | |
+| **Mastra Code** (`mastracode`) | `󰒍 Mastra` | |
+| **Pi Agent** (`pi`) | `󰄛 Pi` | |
+| **Terminal / Shell** (`terminal`) | ` Terminal` | |
+| **GitHub Copilot** (`copilot`) | ` Copilot` | |
 
 ---
 
@@ -150,6 +167,18 @@ HerdrSpanis reconoce tus agentes y los muestra con sus iconos tipográficos ofic
 * `Ctrl + b` luego `c`: Nueva pestaña.
 * `Ctrl + b` luego `w`: Menú de espacios de trabajo.
 * `Ctrl + b` luego `x`: Cerrar panel actual.
+
+---
+
+### 🧠 Memoria Persistente y Documentación de Arquitectura (Obsidian + Graphify)
+
+La especificación técnica, trazabilidad AST y decisiones arquitectónicas (ADRs) están disponibles en la bóveda de documentación:
+
+* 📚 **[Índice de Documentación y Bóveda Obsidian](docs/README.md)**
+* 🏛️ **[ADR-001: Localización y Favicons RGB de 24 Agentes IA](docs/architecture/ADR-001-localizacion-y-favicons-rust.md)**
+* 🔔 **[ADR-002: Sistema Asíncrono de Actualizaciones con Caché TTL](docs/architecture/ADR-002-sistema-notificacion-actualizaciones.md)**
+* 👥 **[ADR-003: Orquestación Multi-Agente con Nous Hermes en Herdr](docs/architecture/ADR-003-orquestacion-multi-agente-hermes.md)**
+* 🗺️ **[Grafo de Conocimiento AST (Graphify)](docs/architecture/GRAPHIFY-ARCHITECTURE.md)**
 
 ---
 
@@ -209,10 +238,13 @@ curl -fsSL https://raw.githubusercontent.com/quijotevitruvio/HerdrSpanis/main/in
 | Command | Action |
 | :--- | :--- |
 | `herdr` | Launch Herdr in full Spanish. |
+| `herdr-escuadron` | Launch multi-agent squad (Antigravity + Hermes Auditor). |
+| `herdr-agente [name]` | Launch any of the 24 AI coding agents in Spanish. |
 | `herdr-idioma es` | Switch to Spanish interface. |
 | `herdr-idioma en` | Revert to official upstream English binary. |
 | `herdr-idioma` | Check active language. |
 | `herdr-actualizar-es` | Auto-sync and update Spanish version against upstream releases. |
+| `herdr-check-actualizacion` | Check GitHub Releases for updates with 24h cache TTL. |
 
 ---
 
